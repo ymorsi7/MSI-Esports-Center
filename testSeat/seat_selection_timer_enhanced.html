@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seat Selection</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 10px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .square {
+    border: 2px solid #ddd;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 5px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .square:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  .square.active {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border-color: #4CAF50;
+  }
+  .timer {
+    margin-top: 10px;
+    font-size: 0.75em;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <!-- Example for a single row -->
+  <div class="square" onclick="selectSeat(this, 'A1')">
+    <span class="seat-number">A1</span>
+    <span class="timer" style="display:none;"></span>
+  </div>
+  <div class="square" onclick="selectSeat(this, 'A2')">
+    <span class="seat-number">A2</span>
+    <span class="timer" style="display:none;"></span>
+  </div>
+  <!-- More squares can be added following the same pattern -->
+</div>
+<script>
+  function selectSeat(element, seatId) {
+    let time = prompt("How many hours/minutes? (format: HH:MM)");
+    if (time) {
+      let [hours, minutes] = time.split(':').map(t => parseInt(t));
+      let totalSeconds = hours * 3600 + minutes * 60;
+      element.classList.add('active');
+      let timerElement = element.querySelector('.timer');
+      timerElement.style.display = 'block';
+      countdown(timerElement, totalSeconds);
+    }
+  }
+
+  function countdown(timerElement, seconds) {
+    let interval = setInterval(() => {
+      let hours = parseInt(seconds / 3600);
+      let minutes = parseInt((seconds % 3600) / 60);
+      let remainingSeconds = seconds % 60;
+      timerElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+      seconds--;
+
+      if (seconds < 0) {
+        clearInterval(interval);
+        timerElement.parentElement.classList.remove('active');
+        timerElement.style.display = 'none';
+      }
+    }, 1000);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seat Selection</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* 8 columns including the gap */
+    grid-gap: 10px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .square {
+    border: 2px solid #ddd;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 5px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .square:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  .square.active {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border-color: #4CAF50;
+  }
+  .timer {
+    margin-top: 10px;
+    font-size: 0.75em;
+    color: #333;
+  }
+  .gap {
+    grid-column: 2; /* Adjust this value to place the gap in the correct position */
+  }
+  .empty {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <!-- A row with gap -->
+  <div class="square" onclick="selectSeat(this, 'A1')">A1<span class="timer" style="display:none;"></span></div>
+  <div class="gap"></div> <!-- This creates a gap between A1 and A2 -->
+  <div class="square" onclick="selectSeat(this, 'A2')">A2<span class="timer" style="display:none;"></span></div>
+  <div class="square" onclick="selectSeat(this, 'A3')">A3<span class="timer" style="display:none;"></span></div>
+  <div class="square" onclick="selectSeat(this, 'A4')">A4<span class="timer" style="display:none;"></span></div>
+  <div class="square" onclick="selectSeat(this, 'A5')">A5<span class="timer" style="display:none;"></span></div>
+  <!-- ... Other rows ... -->
+</div>
+<script>
+// JavaScript will remain the same as before to handle the seat selection and countdown.
+</script>
+</body>
+</html>
