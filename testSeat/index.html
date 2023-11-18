@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Seatchart Example</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/seatchart@0.1.0/dist/seatchart.min.css">
+    <style>
+      .economy {
+        color: white;
+        background-color: #43aa8b;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/seatchart@0.1.0/dist/seatchart.min.js"></script>
+    <script>
+      var element = document.getElementById('container');
+      var options = {
+        map: {
+          rows: 4,
+          columns: 8,
+          seatTypes: {
+            default: {
+              label: 'Economy',
+              cssClass: 'economy',
+              price: 10,
+            },
+          },
+        },
+      };
+
+      var sc = new Seatchart(element, options);
+    </script>
+  </body>
+</html>

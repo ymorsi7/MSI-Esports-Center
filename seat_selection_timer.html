@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seat Selection</title>
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .square {
+    border: 1px solid #000;
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+  }
+  .square.active {
+    background-color: #A0A0A0;
+  }
+  .timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <!-- Example for a single row -->
+  <div class="square" onclick="selectSeat(this, 'A1')">A1</div>
+  <div class="square" onclick="selectSeat(this, 'A2')">A2</div>
+  <div class="square" onclick="selectSeat(this, 'A3')">A3</div>
+  <div class="square" onclick="selectSeat(this, 'A4')">A4</div>
+  <div class="square" onclick="selectSeat(this, 'A5')">A5</div>
+  <!-- More squares can be added following the same pattern -->
+</div>
+<script>
+  function selectSeat(element, seatId) {
+    let time = prompt("How many hours/minutes? (format: HH:MM)");
+    if (time) {
+      let [hours, minutes] = time.split(':').map(t => parseInt(t));
+      let totalSeconds = hours * 3600 + minutes * 60;
+      element.classList.add('active');
+      countdown(element, totalSeconds);
+    }
+  }
+
+  function countdown(element, seconds) {
+    let timerElement = document.createElement('div');
+    timerElement.classList.add('timer');
+    element.appendChild(timerElement);
+
+    let interval = setInterval(() => {
+      let hours = parseInt(seconds / 3600);
+      let minutes = parseInt((seconds % 3600) / 60);
+      let remainingSeconds = seconds % 60;
+      timerElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+      seconds--;
+
+      if (seconds < 0) {
+        clearInterval(interval);
+        element.classList.remove('active');
+        element.removeChild(timerElement);
+      }
+    }, 1000);
+  }
+</script>
+</body>
+</html>
