@@ -145,7 +145,50 @@ input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {display: none;}
 	  box-shadow: none;
 	}
   </style>
+<style>
+	#usersTable table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
+#usersTable th, #usersTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#usersTable th {
+    background-color: #f2f2f2;
+}
+
+#usersTable td {
+    background-color: #ffffff;
+}
+
+.tally {
+    display: flex;
+    gap: 5px;
+}
+
+.tally span {
+    width: 15px;
+    height: 15px;
+    background-color: #e0e0e0;
+    display: inline-block;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.tally span.active {
+    background-color: red;
+}
+
+.dropdown {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+</style>
   
 
   </head>
@@ -208,8 +251,26 @@ input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {display: none;}
 		
 	</tab-content>
 	<tab-content>
-		<p>TAB [ <tab-number>02</tab-number> ] content</p>
-		<p>CSS Grid...</p>
+		<p>Users</p>
+		
+		<div id="usersTable">
+			<table>
+				<thead>
+					<tr>
+						<th>PID</th>
+						<th>Name</th>
+						<th>Time In</th>
+						<th>Total Hours</th>
+						<th>Extra Time</th>
+						<th>Tallies</th>
+						<th>Seat Selection</th>
+					</tr>
+				</thead>
+				<tbody id="userData">
+					<!-- Data rows will be inserted here by JavaScript -->
+				</tbody>
+			</table>
+		</div>
 	</tab-content>
 	<tab-content>
 		<p>TAB [ <tab-number>03</tab-number> ] content</p>
@@ -221,4 +282,60 @@ input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {display: none;}
 	</tab-content>
 </tab-container>
 </body>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+    fetch('testSeat\src\TestData.csv') // csv file
+        .then(response => response.text())
+        .then(csvText => Papa.parse(csvText, {
+            header: true,
+            complete: function(results) {
+                populateTable(results.data);
+            }
+        }));
+});
+
+function populateTable(usersData) {
+    var userDataContainer = document.getElementById('userData');
+
+    usersData.forEach(function(user) {
+        var row = document.createElement('tr');
+
+        // Add data cells
+        row.innerHTML = `
+            <td>${user.PID}</td>
+            <td>${user.Name}</td>
+            <td>${user['Time In']}</td>
+            <td>${user['Total Hours']}</td>
+            <td>${user['Extra Time']}</td>
+            <td class="tally">${generateTally()}</td>
+            <td>${generateDropdown()}</td>
+        `;
+
+        userDataContainer.appendChild(row);
+    });
+}
+
+function generateTally() {
+    var tallyHtml = '';
+    for (var i = 0; i < 5; i++) {
+        tallyHtml += '<span class="tally-dot" onclick="toggleTally(this)"></span>';
+    }
+    return tallyHtml;
+}
+
+function generateDropdown() {
+    return `
+        <select class="dropdown">
+            <option value="a1">A1</option>
+            <option value="a2">A2</option>
+            <option value="a3">A3</option>
+        </select>
+    `;
+}
+
+function toggleTally(element) {
+    element.classList.toggle('active');
+}
+</script>
 <script src = "main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
