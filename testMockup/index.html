@@ -1,0 +1,75 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seating Map</title>
+    <style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(6, 50px);
+        grid-gap: 5px;
+        justify-content: center;
+    }
+    .grid-item {
+        border: 1px solid black;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+    }
+    .occupied {
+        background-color: red;
+    }
+    .timer {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        font-size: 10px;
+    }
+    </style>
+    </head>
+    <body>
+
+    <div class="grid-container">
+    <!-- Dynamically create grid items based on your layout -->
+    <!-- This is a simplification; you would need to add all your grid items -->
+    <div class="grid-item" id="A1">A1<span class="timer" id="timer-A1"></span></div>
+    <!-- ... other seats ... -->
+    </div>
+
+    <script>
+    // Function to toggle seat occupancy
+    function toggleSeat(seat) {
+        seat.classList.toggle('occupied');
+        let timerDisplay = seat.querySelector('.timer');
+        if (seat.classList.contains('occupied')) {
+        let time = 5; // Example: 5 minutes
+        timerDisplay.textContent = time;
+        let timer = setInterval(function() {
+            time--;
+            timerDisplay.textContent = time;
+            if (time <= 0) {
+            clearInterval(timer);
+            seat.classList.remove('occupied');
+            timerDisplay.textContent = '';
+            }
+        }, 60000);
+        } else {
+        clearInterval(seat.timer);
+        timerDisplay.textContent = '';
+        }
+    }
+
+    // Add click event to all seats
+    document.querySelectorAll('.grid-item').forEach(function(seat) {
+        seat.addEventListener('click', function() {
+        toggleSeat(seat);
+        });
+    });
+    </script>
+
+    </body>
+    </html> 
