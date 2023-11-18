@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seat Selection</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 10px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .square {
+    border: 2px solid #ddd;
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 5px;
+    background-color: #fafafa;
+  }
+  .square:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  .square.active {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border-color: #4CAF50;
+  }
+  .timer {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size:.7em;
+    color: #fff;
+  }
+  .gap {
+    border: 0px solid #ddd;
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 5px;
+  }
+  .empty {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <div class="square" onclick="selectSeat(this, 'D1')">D1</div>
+  <div class="square" onclick="selectSeat(this, 'D2')">D2</div>
+  <div class="square" onclick="selectSeat(this, 'D3')">D3</div>
+  <div class="square" onclick="selectSeat(this, 'D4')">D4</div>
+  <div class="square" onclick="selectSeat(this, 'D5')">D5</div>
+  <div class="square" onclick="selectSeat(this, 'D6')">D6</div>
+  <div class="gap"></div>
+  <div class="square" onclick="selectSeat(this, 'E1')">E1</div>
+  <!-- row 1 -->
+
+  <div class="square" onclick="selectSeat(this, 'C1')">C1</div>
+  <div class="square" onclick="selectSeat(this, 'C2')">C2</div>
+  <div class="square" onclick="selectSeat(this, 'C3')">C3</div>
+  <div class="square" onclick="selectSeat(this, 'C4')">C4</div>
+  <div class="square" onclick="selectSeat(this, 'C5')">C5</div>
+  <div class="square" onclick="selectSeat(this, 'C6')">C6</div>
+  <div class="gap"></div>
+  <div class="square" onclick="selectSeat(this, 'E1')">E2</div>
+  <!-- row 2 -->
+
+  <div class="square" onclick="selectSeat(this, 'B1')">B1</div>
+  <div class="square" onclick="selectSeat(this, 'B2')">B2</div>
+  <div class="square" onclick="selectSeat(this, 'B3')">B3</div>
+  <div class="square" onclick="selectSeat(this, 'B4')">B4</div>
+  <div class="square" onclick="selectSeat(this, 'B5')">B5</div>
+  <div class="gap"></div>
+  <div class="gap"></div>
+  <div class="square" onclick="selectSeat(this, 'E3')">E3</div>
+  <!-- row 3 -->
+
+  <div class="square" onclick="selectSeat(this, 'A1')">A1</div>
+  <div class="square" onclick="selectSeat(this, 'A2')">A2</div>
+  <div class="square" onclick="selectSeat(this, 'A3')">A3</div>
+  <div class="square" onclick="selectSeat(this, 'A4')">A4</div>
+  <div class="square" onclick="selectSeat(this, 'A5')">A5</div>
+  <div class="gap"></div>
+  <div class="gap"></div>
+  <div class="square" onclick="selectSeat(this, 'E4')">E4</div>
+  <!-- row 4 -->
+</div>
+</body>
+<script src = "main.js"></script>
+</html>

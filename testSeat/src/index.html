@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seat Selection</title>
+
+<style>
+	:root {
+	--page-height: 100vh;
+	--page-width: 100vw;
+	--page-margin: 0;
+	--page-padding: 0;
+	--page-font-family: Calibri, "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
+	--page-text-color: #8e9196;
+	--page-text-color-hover: rgba(255,255,255,1.0);
+	--page-background-color: #1a1e23;
+	--tab-display: grid;
+	--tab-background-color: rgba(255, 255, 255, 0.03);
+	--display-none: none;
+	--box-sizing: border-box;
+}
+*:before,
+*:after,
+*,
+::after,
+::before {box-sizing: border-box;}
+html,
+body {
+	display: var(--tab-display);
+	justify-content: center;
+	margin: var(--page-margin);
+	padding: var(--page-padding);
+	font-family: var(--page-font-family);
+	color: var(--page-text-color);
+	background-color: var(--page-background-color);
+}
+p {padding: 0 1em;}
+p span {color: var(--page-text-color-hover);}
+
+tab-container {
+	display: var(--tab-display);
+	margin-top: 50px;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: auto 1fr;
+	border: solid rgba(255,255,255,0.03);
+	border-radius: .5em;
+	justify-content: center;
+}
+/*
+TAB CONTROLS
+Hide radios */
+input {display: none;}
+input:checked + label {
+	color: var(--page-text-color-hover);
+	background-color: rgba(255,255,255,0.0);
+	transition: all 250ms;
+}
+label {
+	cursor: pointer;
+	transition: color 250ms;
+	padding: 1em;
+	border-right: solid 2px var(--page-background-color);
+	background-color: var(--tab-background-color);
+	text-align: center;
+	transition: all 250ms;
+}
+label:last-of-type {border: none; }
+label:hover {
+	color: var(--page-text-color-hover);
+	background-color: rgba(255,255,255,0.05);
+}
+
+tab-content {
+	display: var(--tab-display);
+	grid-column: 1 / -1;
+}
+/*
+Why doesn't this work!? 
+input ~ tab-content {display: none;}
+input:checked ~ tab-content {display: var(--tab-display);}*/
+
+input#tabToggle01:checked ~ tab-content:not(:nth-of-type(1)),
+input#tabToggle02:checked ~ tab-content:not(:nth-of-type(2)),
+input#tabToggle03:checked ~ tab-content:not(:nth-of-type(3)),
+input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {display: none;}
+
+	body {
+	  font-family: 'Arial', sans-serif;
+	  /* background-color: #f4f4f4; */
+	  margin: 0;
+	  padding: 20px;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  height: 100vh;
+	}
+	.layout {
+	  display: grid;
+	  grid-template-columns: repeat(8, 1fr);
+	  grid-gap: 10px;
+	  /* background-color: #ffffff; */
+	  padding: 20px;
+	  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+	  border-radius: 10px;
+	  overflow: hidden;
+	}
+	.square {
+	  border: 2px solid #ddd;
+	  padding: 20px;
+	  cursor: pointer;
+	  position: relative;
+	  transition: transform 0.2s, box-shadow 0.2s;
+	  border-radius: 5px;
+	  color: #ffffff;
+	}
+	.square:hover {
+	  transform: translateY(-3px);
+	  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	}
+	.square.active {
+	  background-color: #4CAF50;
+	  color: #ffffff;
+	  border-color: #4CAF50;
+	}
+	.timer {
+	  position: absolute;
+	  top: 75%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  font-size:.7em;
+	  color: #fff;
+	}
+	.gap {
+	  border: 0px solid #ddd;
+	  padding: 20px;
+	  cursor: pointer;
+	  position: relative;
+	  transition: transform 0.2s, box-shadow 0.2s;
+	  border-radius: 5px;
+	}
+	.empty {
+	  background-color: transparent;
+	  border: none;
+	  box-shadow: none;
+	}
+  </style>
+
+  
+
+  </head>
+  
+<body>
+
+<tab-container>
+	<!-- TAB CONTROLS -->
+	<input type="radio" id="tabToggle01" name="tabs" value="1" checked />
+	<label for="tabToggle01" checked="checked">Seat Selection</label>
+	<input type="radio" id="tabToggle02" name="tabs" value="2" />
+	<label for="tabToggle02">Users</label>
+	<input type="radio" id="tabToggle03" name="tabs" value="3" />
+	<label for="tabToggle03">Analytics</label>
+	<input type="radio" id="tabToggle04" name="tabs" value="4" />
+	<label for="tabToggle04">Export Analytics to PDF</label>
+	<tab-content>
+
+		<div class="layout">
+			<div class="square" onclick="selectSeat(this, 'D1')">D1</div>
+			<div class="square" onclick="selectSeat(this, 'D2')">D2</div>
+			<div class="square" onclick="selectSeat(this, 'D3')">D3</div>
+			<div class="square" onclick="selectSeat(this, 'D4')">D4</div>
+			<div class="square" onclick="selectSeat(this, 'D5')">D5</div>
+			<div class="square" onclick="selectSeat(this, 'D6')">D6</div>
+			<div class="gap"></div>
+			<div class="square" onclick="selectSeat(this, 'E1')">E1</div>
+			<!-- row 1 -->
+		  
+			<div class="square" onclick="selectSeat(this, 'C1')">C1</div>
+			<div class="square" onclick="selectSeat(this, 'C2')">C2</div>
+			<div class="square" onclick="selectSeat(this, 'C3')">C3</div>
+			<div class="square" onclick="selectSeat(this, 'C4')">C4</div>
+			<div class="square" onclick="selectSeat(this, 'C5')">C5</div>
+			<div class="square" onclick="selectSeat(this, 'C6')">C6</div>
+			<div class="gap"></div>
+			<div class="square" onclick="selectSeat(this, 'E1')">E2</div>
+			<!-- row 2 -->
+		  
+			<div class="square" onclick="selectSeat(this, 'B1')">B1</div>
+			<div class="square" onclick="selectSeat(this, 'B2')">B2</div>
+			<div class="square" onclick="selectSeat(this, 'B3')">B3</div>
+			<div class="square" onclick="selectSeat(this, 'B4')">B4</div>
+			<div class="square" onclick="selectSeat(this, 'B5')">B5</div>
+			<div class="gap"></div>
+			<div class="gap"></div>
+			<div class="square" onclick="selectSeat(this, 'E3')">E3</div>
+			<!-- row 3 -->
+		  
+			<div class="square" onclick="selectSeat(this, 'A1')">A1</div>
+			<div class="square" onclick="selectSeat(this, 'A2')">A2</div>
+			<div class="square" onclick="selectSeat(this, 'A3')">A3</div>
+			<div class="square" onclick="selectSeat(this, 'A4')">A4</div>
+			<div class="square" onclick="selectSeat(this, 'A5')">A5</div>
+			<div class="gap"></div>
+			<div class="gap"></div>
+			<div class="square" onclick="selectSeat(this, 'E4')">E4</div>
+			<!-- row 4 -->
+		  </div>
+		
+	</tab-content>
+	<tab-content>
+		<p>TAB [ <tab-number>02</tab-number> ] content</p>
+		<p>CSS Grid...</p>
+	</tab-content>
+	<tab-content>
+		<p>TAB [ <tab-number>03</tab-number> ] content</p>
+		<p>CSS Grid is the...</p>
+	</tab-content>
+	<tab-content>
+		<p>TAB [ <tab-number>04</tab-number> ] content</p>
+		<p>CSS Grid is the future!</p>
+	</tab-content>
+</tab-container>
+</body>
+<script src = "main.js"></script>
