@@ -9,7 +9,7 @@ class Person:
     def createTest(number):
         with open(str(datetime.date.today()) + "_TestData.csv", 'w', newline='') as file:
             writer = csv.writer(file)
-            field = ["PID", "Name", "Time In", "Total Hours", "Extra Time"]
+            field = ["PID", "Name", "Time In", "Total Hours (H)", "Extra Time (Minutes)"]
             writer.writerow(field)
 
             for _ in range (number):
