@@ -1,5 +1,5 @@
 # MSI Hackathon
-Solution to track/manage (user session) times at each PC
+Solution to track/manage (user session) times at each PC.
 Goal: Improve (queue time) and streamline organization of (TEC usage).
 
 * Recommendation
