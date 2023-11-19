@@ -10,7 +10,6 @@ import os
 
 ## make sure to import your student and computer object files
 
-
 app = FastAPI()             
 app.mount("/src", StaticFiles(directory="backend/src/"), name="src")
 total_users = []
@@ -28,10 +27,7 @@ def get_home(request: Request) -> HTMLResponse:
 ## Duration is useful again here so the internal algorithm can have a clock and count down.
 @app.post('/user')
 def add_student(position: str, duration: str):
-    #add algorithms here
     aPerson = Tester.createPerson() ## PID , NAME, TIME IN , DURATION, EXTRA MINUTES, SEVERE TALLY, MODERATE TALLY, LIGHT TALLY
-    ## 
-    ## Associate aPerson with a computer and add it to users and total users
     return #.append([str(aPerson[0]), str(aPerson[1]), duration])
 
 @app.delete("/user/{PID}")
