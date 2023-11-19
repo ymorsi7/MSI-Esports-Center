@@ -15,6 +15,7 @@ total_users = []
 users = {}
 queue = {}
 
+## Should actually return users for this as well
 @app.get('/', response_class=HTMLResponse)
 def get_home(request: Request) -> HTMLResponse:
     with open("index.html", "r") as file:
@@ -66,13 +67,4 @@ def get_users():
 def get_queue():
     return queue
 if __name__ == "__main__":
-  # total_users = {} # total users that came today, dynamically populated
-   # users = {} # current users in tec cafe using computers
-    #fake_users = [] # fake users container
-   # for _ in range (15):
-     #   fake_users.append([Tester.createPerson()]) ## [PID (AXXXXXXXX), Name, Time In (YYYY-MM-DD HH:M:S), Duration, Tally (severe), Tally (moderate), Tally (light)]
-    
-    #print(fake_users)
-
-    ## Test Algorithms
     uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=True)
