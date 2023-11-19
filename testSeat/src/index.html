@@ -1,461 +1,621 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seat Selection</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TEC</title>
 
-<style>
-	:root {
-	--page-height: 100vh;
-	--page-width: 100vw;
-	--page-margin: 0;
-	--page-padding: 0;
-	--page-font-family: Calibri, "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
-	--page-text-color: #8e9196;
-	--page-text-color-hover: rgba(255,255,255,1.0);
-	--page-background-color: #1a1e23;
-	--tab-display: grid;
-	--tab-background-color: rgba(255, 255, 255, 0.03);
-	--display-none: none;
-	--box-sizing: border-box;
-}
-*:before,
-*:after,
-*,
-::after,
-::before {box-sizing: border-box;}
-html,
-body {
-	display: var(--tab-display);
-	justify-content: center;
-	margin: var(--page-margin);
-	padding: var(--page-padding);
-	font-family: var(--page-font-family);
-	color: var(--page-text-color);
-	background-color: var(--page-background-color);
-}
-p {padding: 0 1em;}
-p span {color: var(--page-text-color-hover);}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<link rel="icon" href="icon.jpeg" />
 
-tab-container {
-	display: var(--tab-display);
-	margin-top: 50px;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-rows: auto 1fr;
-	border: solid rgba(255,255,255,0.03);
-	border-radius: .5em;
-	justify-content: center;
-}
-/*
+ <style>
+      :root {
+        --page-width: 100vw;
+        --page-margin: 0;
+        --page-padding: 0;
+        --page-font-family: Calibri, "Gill Sans", "Gill Sans MT", "Trebuchet MS",
+          sans-serif;
+        --page-text-color: #8e9196;
+        --page-text-color-hover: rgba(255, 255, 255, 1);
+        --page-background-color: #1a1e23;
+        --tab-display: grid;
+        --tab-background-color: rgba(255, 255, 255, 0.03);
+        --display-none: none;
+        --box-sizing: border-box;
+      }
+      *:before,
+      *:after,
+      *,
+      ::after,
+      ::before {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        display: var(--tab-display);
+        justify-content: center;
+        margin: var(--page-margin);
+        padding: var(--page-padding);
+        font-family: var(--page-font-family);
+        color: var(--page-text-color);
+        background-color: var(--page-background-color);
+      }
+      p {
+        padding: 0 1em;
+      }
+      p span {
+        color: var(--page-text-color-hover);
+      }
+
+      tab-container {
+        display: var(--tab-display);
+        margin-top: 50px;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto 1fr;
+        border: solid rgba(255, 255, 255, 0.03);
+        border-radius: 0.5em;
+        justify-content: center;
+      }
+      /*
 TAB CONTROLS
 Hide radios */
-input {display: none;}
-input:checked + label {
-	color: var(--page-text-color-hover);
-	background-color: rgba(255,255,255,0.0);
-	transition: all 250ms;
-}
-label {
-	cursor: pointer;
-	transition: color 250ms;
-	padding: 1em;
-	border-right: solid 2px var(--page-background-color);
-	background-color: var(--tab-background-color);
-	text-align: center;
-	transition: all 250ms;
-}
-label:last-of-type {border: none; }
-label:hover {
-	color: var(--page-text-color-hover);
-	background-color: rgba(255,255,255,0.05);
-}
+      input {
+        display: none;
+      }
+      input:checked + label {
+        color: var(--page-text-color-hover);
+        background-color: rgba(255, 255, 255, 0);
+        transition: all 250ms;
+      }
+      label {
+        cursor: pointer;
+        transition: color 250ms;
+        padding: 1em;
+        border-right: solid 2px var(--page-background-color);
+        background-color: var(--tab-background-color);
+        text-align: center;
+        transition: all 250ms;
+      }
+      label:last-of-type {
+        border: none;
+      }
+      label:hover {
+        color: var(--page-text-color-hover);
+        background-color: rgba(255, 255, 255, 0.05);
+      }
 
-tab-content {
-	display: var(--tab-display);
-	grid-column: 1 / -1;
-}
-/*
+      tab-content {
+        display: var(--tab-display);
+        grid-column: 1 / -1;
+      }
+      /*
 Why doesn't this work!? 
 input ~ tab-content {display: none;}
 input:checked ~ tab-content {display: var(--tab-display);}*/
 
-input#tabToggle01:checked ~ tab-content:not(:nth-of-type(1)),
-input#tabToggle02:checked ~ tab-content:not(:nth-of-type(2)),
-input#tabToggle03:checked ~ tab-content:not(:nth-of-type(3)),
-input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {display: none;}
+      input#tabToggle01:checked ~ tab-content:not(:nth-of-type(1)),
+      input#tabToggle02:checked ~ tab-content:not(:nth-of-type(2)),
+      input#tabToggle03:checked ~ tab-content:not(:nth-of-type(3)),
+      input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {
+        display: none;
+      }
 
-	body {
-	  font-family: 'Arial', sans-serif;
-	  /* background-color: #f4f4f4; */
-	  margin: 0;
-	  padding: 20px;
-	  display: flex;
-	  justify-content: center;
-	  align-items: center;
-	  height: 100vh;
-	}
-	.layout {
-	  display: grid;
-	  grid-template-columns: repeat(8, 1fr);
-	  grid-gap: 10px;
-	  /* background-color: #ffffff; */
-	  padding: 20px;
-	  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-	  border-radius: 10px;
-	  overflow: hidden;
-	}
-	.square {
-	  border: 2px solid #ddd;
-	  padding: 20px;
-	  cursor: pointer;
-	  position: relative;
-	  transition: transform 0.2s, box-shadow 0.2s;
-	  border-radius: 5px;
-	  color: #ffffff;
-	}
-	.square:hover {
-	  transform: translateY(-3px);
-	  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-	}
-	.square.active {
-	  background-color: #4CAF50;
-	  color: #ffffff;
-	  border-color: #4CAF50;
-	}
-	.timer {
-	  position: absolute;
-	  top: 75%;
-	  left: 50%;
-	  transform: translate(-50%, -50%);
-	  font-size:.7em;
-	  color: #fff;
-	}
-	.gap {
-	  border: 0px solid #ddd;
-	  padding: 20px;
-	  cursor: pointer;
-	  position: relative;
-	  transition: transform 0.2s, box-shadow 0.2s;
-	  border-radius: 5px;
-	}
-	.empty {
-	  background-color: transparent;
-	  border: none;
-	  box-shadow: none;
-	}
-  </style>
-<style>
-	#usersTable table {
-    width: 100%;
-    border-collapse: collapse;
-}
+      body {
+        font-family: "Arial", sans-serif;
+        /* background-color: #f4f4f4; */
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* height: 100vh; */
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-gap: 10px;
+        /* background-color: #ffffff; */
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .square {
+        border: 2px solid #ddd;
+        padding: 20px;
+        cursor: pointer;
+        position: relative;
+        transition: transform 0.2s, box-shadow 0.2s;
+        border-radius: 5px;
+        color: #ffffff;
+      }
+      .square:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+      .square.active {
+        background-color: #4caf50;
+        color: #ffffff;
+        border-color: #4caf50;
+      }
+      .timer {
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 0.7em;
+        color: #fff;
+      }
+      .gap {
+        border: 0px solid #ddd;
+        padding: 20px;
+        cursor: pointer;
+        position: relative;
+        transition: transform 0.2s, box-shadow 0.2s;
+        border-radius: 5px;
+      }
+      .empty {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+      }
+    </style>
+    <style>
+      #usersTable table {
+        width: 100%;
+        border-collapse: collapse;
+      }
 
-#usersTable th, #usersTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
+      #usersTable th,
+      #usersTable td {
+        border: 1px solid rgb(49, 49, 49)(255, 255, 255, 0.03);
+        padding: 8px;
+        text-align: left;
+      }
 
-#usersTable th {
-    background-color: #f2f2f2;
-}
+      #usersTable th {
+        background-color: rgba(59, 59, 59, 0.03);
+      }
 
-#usersTable td {
-    background-color: #ffffff;
-}
+      #usersTable td {
+        background-color: rgba(255, 255, 255, 0.03);
+      }
 
-.tally {
-    display: flex;
-    gap: 5px;
-}
+      .tally {
+        display: flex;
+        gap: 5px;
+      }
 
-.tally span {
-    width: 15px;
-    height: 15px;
-    background-color: #e0e0e0;
-    display: inline-block;
-    border-radius: 50%;
-    cursor: pointer;
-}
+      .tally span {
+        width: 15px;
+        height: 15px;
+        background-color: rgba(189, 189, 189, 0.279);
+        display: inline-block;
+        border-radius: 50%;
+        cursor: pointer;
+      }
 
-.tally span.active {
-    background-color: red;
-}
+      .tally span.active {
+        background-color: red;
+      }
 
-.dropdown {
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-</style>
-  
-
+      .dropdown {
+        padding: 5px;
+		background-color: rgba(189, 189, 189, 0.114);
+		color: white;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        border-radius: 5px;
+      }
+    </style>
   </head>
-  
-<body>
 
-<tab-container>
-	<!-- TAB CONTROLS -->
-	<input type="radio" id="tabToggle01" name="tabs" value="1" checked />
-	<label for="tabToggle01" checked="checked">Seat Selection</label>
-	<input type="radio" id="tabToggle02" name="tabs" value="2" />
-	<label for="tabToggle02">Users</label>
-	<input type="radio" id="tabToggle03" name="tabs" value="3" />
-	<label for="tabToggle03">Analytics</label>
-	<input type="radio" id="tabToggle04" name="tabs" value="4" />
-	<label for="tabToggle04">Queue</label>
-	<tab-content>
+  <body>
+    <tab-container>
+      <!-- TAB CONTROLS -->
+      <input type="radio" id="tabToggle01" name="tabs" value="1" checked />
+      <label for="tabToggle01" checked="checked">Seat Selection</label>
+      <input type="radio" id="tabToggle02" name="tabs" value="2" />
+      <label for="tabToggle02">Users</label>
+      <input type="radio" id="tabToggle03" name="tabs" value="3" />
+      <label for="tabToggle03">Analytics</label>
+      <input type="radio" id="tabToggle04" name="tabs" value="4" />
+      <label for="tabToggle04">Queue</label>
+      <tab-content>
+        <div class="layout">
+          <div class="square" onclick="selectSeat(this, 'D1')">D1</div>
+          <div class="square" onclick="selectSeat(this, 'D2')">D2</div>
+          <div class="square" onclick="selectSeat(this, 'D3')">D3</div>
+          <div class="square" onclick="selectSeat(this, 'D4')">D4</div>
+          <div class="square" onclick="selectSeat(this, 'D5')">D5</div>
+          <div class="square" onclick="selectSeat(this, 'D6')">D6</div>
+          <div class="gap"></div>
+          <div class="square" onclick="selectSeat(this, 'E1')">E1</div>
+          <!-- row 1 -->
 
-		<div class="layout">
-			<div class="square" onclick="selectSeat(this, 'D1')">D1</div>
-			<div class="square" onclick="selectSeat(this, 'D2')">D2</div>
-			<div class="square" onclick="selectSeat(this, 'D3')">D3</div>
-			<div class="square" onclick="selectSeat(this, 'D4')">D4</div>
-			<div class="square" onclick="selectSeat(this, 'D5')">D5</div>
-			<div class="square" onclick="selectSeat(this, 'D6')">D6</div>
-			<div class="gap"></div>
-			<div class="square" onclick="selectSeat(this, 'E1')">E1</div>
-			<!-- row 1 -->
-		  
-			<div class="square" onclick="selectSeat(this, 'C1')">C1</div>
-			<div class="square" onclick="selectSeat(this, 'C2')">C2</div>
-			<div class="square" onclick="selectSeat(this, 'C3')">C3</div>
-			<div class="square" onclick="selectSeat(this, 'C4')">C4</div>
-			<div class="square" onclick="selectSeat(this, 'C5')">C5</div>
-			<div class="square" onclick="selectSeat(this, 'C6')">C6</div>
-			<div class="gap"></div>
-			<div class="square" onclick="selectSeat(this, 'E1')">E2</div>
-			<!-- row 2 -->
-		  
-			<div class="square" onclick="selectSeat(this, 'B1')">B1</div>
-			<div class="square" onclick="selectSeat(this, 'B2')">B2</div>
-			<div class="square" onclick="selectSeat(this, 'B3')">B3</div>
-			<div class="square" onclick="selectSeat(this, 'B4')">B4</div>
-			<div class="square" onclick="selectSeat(this, 'B5')">B5</div>
-			<div class="gap"></div>
-			<div class="gap"></div>
-			<div class="square" onclick="selectSeat(this, 'E3')">E3</div>
-			<!-- row 3 -->
-		  
-			<div class="square" onclick="selectSeat(this, 'A1')">A1</div>
-			<div class="square" onclick="selectSeat(this, 'A2')">A2</div>
-			<div class="square" onclick="selectSeat(this, 'A3')">A3</div>
-			<div class="square" onclick="selectSeat(this, 'A4')">A4</div>
-			<div class="square" onclick="selectSeat(this, 'A5')">A5</div>
-			<div class="gap"></div>
-			<div class="gap"></div>
-			<div class="square" onclick="selectSeat(this, 'E4')">E4</div>
-			<!-- row 4 -->
-		  </div>
-		
-	</tab-content>
-	<tab-content>
-		<p>Users</p>
-		
-		<div id="usersTable">
-			<table>
-				<thead>
-					<tr>
-						<th>PID</th>
-						<th>Name</th>
-						<th>Time In</th>
-						<th>Total Hours</th>
-						<th>Extra Time</th>
-						<th>Tallies</th>
-						<th>Seat Selection</th>
-					</tr>
-				</thead>
-				<tbody id="userData">
-					<!-- Data rows here -->
-				</tbody>
-			</table>
-		</div>
-	</tab-content>
-	<tab-content>
-		<p>Analytics</p>
-		<div>
-			<p>Histogram of Hours (Total)</p>
-			<div id="histogramDiv"></div>
-			<p>Time Series of Time In vs Total Hours</p>
-			<div id="timeSeriesDiv"></div>
-			<p>Anomaly Detection on Extra Time</p>
-			<div id="anomalyDetectionDiv"></div>
-		</div>
-	</tab-content>
-	<tab-content>
-		<p>Queue</p>
-		<p>CSS Grid is the future!</p>
-	</tab-content>
-</tab-container>
-</body>
-<script>
-	document.addEventListener('DOMContentLoaded', function() {
-    fetch('TestData.csv') // csv file
-        .then(response => response.text())
-        .then(csvText => Papa.parse(csvText, {
+          <div class="square" onclick="selectSeat(this, 'C1')">C1</div>
+          <div class="square" onclick="selectSeat(this, 'C2')">C2</div>
+          <div class="square" onclick="selectSeat(this, 'C3')">C3</div>
+          <div class="square" onclick="selectSeat(this, 'C4')">C4</div>
+          <div class="square" onclick="selectSeat(this, 'C5')">C5</div>
+          <div class="square" onclick="selectSeat(this, 'C6')">C6</div>
+          <div class="gap"></div>
+          <div class="square" onclick="selectSeat(this, 'E1')">E2</div>
+          <!-- row 2 -->
+
+          <div class="square" onclick="selectSeat(this, 'B1')">B1</div>
+          <div class="square" onclick="selectSeat(this, 'B2')">B2</div>
+          <div class="square" onclick="selectSeat(this, 'B3')">B3</div>
+          <div class="square" onclick="selectSeat(this, 'B4')">B4</div>
+          <div class="square" onclick="selectSeat(this, 'B5')">B5</div>
+          <div class="gap"></div>
+          <div class="gap"></div>
+          <div class="square" onclick="selectSeat(this, 'E3')">E3</div>
+          <!-- row 3 -->
+
+          <div class="square" onclick="selectSeat(this, 'A1')">A1</div>
+          <div class="square" onclick="selectSeat(this, 'A2')">A2</div>
+          <div class="square" onclick="selectSeat(this, 'A3')">A3</div>
+          <div class="square" onclick="selectSeat(this, 'A4')">A4</div>
+          <div class="square" onclick="selectSeat(this, 'A5')">A5</div>
+          <div class="gap"></div>
+          <div class="gap"></div>
+          <div class="square" onclick="selectSeat(this, 'E4')">E4</div>
+          <!-- row 4 -->
+        </div>
+      </tab-content>
+      <tab-content>
+        <p>Users</p>
+
+        <div id="usersTable">
+          <table>
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>Name</th>
+                <th>Time In</th>
+                <th>Total Hours</th>
+                <th>Extra Time</th>
+                <th>Tallies</th>
+                <th>Seat Selection</th>
+              </tr>
+            </thead>
+            <tbody id="userData">
+              <!-- Data rows here -->
+            </tbody>
+          </table>
+        </div>
+      </tab-content>
+      <tab-content>
+        <p>Analytics</p>
+        <div>
+          <div id="overstaySeverityBarChart"></div>
+          <div id="timeInVsOverstaySeverityHeatmap"></div>
+
+          <div id="timeSeriesDiv"></div>
+          <div id="anomalyDetectionDiv"></div>
+        </div>
+      </tab-content>
+      <tab-content>
+        <p>Queue</p>
+      </tab-content>
+    </tab-container>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("TestData.csv") // csv file
+        .then((response) => response.text())
+        .then((csvText) =>
+          Papa.parse(csvText, {
             header: true,
-            complete: function(results) {
-                populateTable(results.data);
-            }
-        }));
-});
+            complete: function (results) {
+              populateTable(results.data);
+            },
+          })
+        );
+    });
 
-function populateTable(usersData) {
-    var userDataContainer = document.getElementById('userData');
+    function populateTable(usersData) {
+      var userDataContainer = document.getElementById("userData");
 
-    usersData.forEach(function(user) {
-        var row = document.createElement('tr');
+      usersData.forEach(function (user) {
+        var row = document.createElement("tr");
 
         // Add data cells
         row.innerHTML = `
             <td>${user.PID}</td>
             <td>${user.Name}</td>
-            <td>${user['Time In']}</td>
-            <td>${user['Total Hours']}</td>
-            <td>${user['Extra Time']}</td>
+            <td>${user["Time In"]}</td>
+            <td>${user["Total Hours"]}</td>
+            <td>${user["Extra Time"]}</td>
             <td class="tally">${generateTally()}</td>
             <td>${generateDropdown()}</td>
         `;
 
         userDataContainer.appendChild(row);
-    });
-}
-
-function generateTally() {
-    var tallyHtml = '';
-    for (var i = 0; i < 5; i++) {
-        tallyHtml += '<span class="tally-dot" onclick="toggleTally(this)"></span>';
+      });
     }
-    return tallyHtml;
-}
 
-function generateDropdown() {
-    return `
+    function generateTally() {
+      var tallyHtml = "";
+      for (var i = 0; i < 5; i++) {
+        tallyHtml +=
+          '<span class="tally-dot" onclick="toggleTally(this)"></span>';
+      }
+      return tallyHtml;
+    }
+
+    function generateDropdown() {
+      return `
         <select class="dropdown">
             <option value="a1">A1</option>
             <option value="a2">A2</option>
             <option value="a3">A3</option>
+            <option value="a4">A4</option>
+            <option value="a5">A5</option>
+			<option value="a1">B1</option>
+            <option value="b2">B2</option>
+            <option value="b3">B3</option>
+            <option value="b4">B4</option>
+            <option value="b5">B5</option>
+			<option value="c1">C1</option>
+            <option value="c2">C2</option>
+            <option value="c3">C3</option>
+            <option value="c4">C4</option>
+            <option value="c5">C5</option>
+            <option value="c6">C6</option>
+			<option value="d1">D1</option>
+            <option value="d2">D2</option>
+            <option value="d3">D3</option>
+            <option value="d4">D4</option>
+            <option value="d5">D5</option>
+            <option value="d6">D6</option>
+			<option value="e1">E1</option>
+            <option value="e2">E2</option>
+            <option value="e3">E3</option>
+            <option value="e4">E4</option>
         </select>
     `;
+    }
+
+    function toggleTally(element) {
+      element.classList.toggle("active");
+    }
+  </script>
+
+  <script>
+    async function loadCSVData(filePath) {
+		const response = await fetch(filePath);
+		const data = await response.text();
+    return Papa.parse(data, { header: true }).data;
 }
 
 
-async function loadCSVData(filePath) {
-    const response = await fetch(filePath);
-    const data = await response.text();
-    return parseCSV(data);
-}
-
-
-function parseCSV(data) {
-    const lines = data.split('\n');
-    const headers = lines[0].split(',');
-    const result = lines.slice(1).map(line => {
-        const values = line.split(',');
+	function parseCSV(data) {
+    const lines = data.split("\n").filter(line => line.trim());
+    const headers = lines[0].split(",").map(header => header.trim()); 
+    return lines.slice(1).map(line => {
+        const values = line.split(",");
+        if (values.length !== headers.length) {
+            throw new Error('Mismatched headers and values in CSV row');
+        }
         return headers.reduce((object, header, index) => {
-            object[header] = values[index];
+            object[header] = values[index] && values[index].trim(); 
             return object;
         }, {});
     });
-    return result;
 }
-function createHistogram(data) {
-    const totalHoursData = data.map(item => item['Total Hours']);
+
+
+function createOverstaySeverityBarChart(data) {
+    const severityCounts = { 'Severe': 0, 'Moderate': 0, 'Light': 0 };
+
+    data.forEach(item => {
+        severityCounts['Severe'] += parseInt(item['Severe'], 10);
+        severityCounts['Moderate'] += parseInt(item['Moderate'], 10);
+        severityCounts['Light'] += parseInt(item['Light'], 10);
+    });
 
     const trace = {
-        x: totalHoursData,
-        type: 'histogram',
+        x: Object.keys(severityCounts),
+        y: Object.values(severityCounts),
+        type: 'bar'
     };
 
     const layout = {
-        title: 'Histogram of Total Hours',
-        xaxis: { title: 'Total Hours' },
-        yaxis: { title: 'Count' }
+        title: 'Overstay Severity Counts',
+        xaxis: { title: 'Severity' },
+        yaxis: { title: 'Count' },
+		paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: '#1a1e23',
+            font: {
+                color: '#fff' 
+            },
+            xaxis: {
+                title: 'Time In',
+                gridcolor: '#444', 
+                linecolor: '#444',
+                tickcolor: '#fff' 
+            },
+            yaxis: {
+                title: 'Extra Time (Minutes)',
+                gridcolor: '#444',
+                linecolor: '#444',
+                tickcolor: '#fff'
+            },
+            showlegend: false
     };
 
-    Plotly.newPlot('histogramDiv', [trace], layout);
+    // Plotly.newPlot('overstaySeverityBarChart', [trace], layout);
 }
+function createTimeInVsOverstaySeverityHeatmap(data) {
+    const timeSlots = {};
+    const severityLevels = ['Severe', 'Moderate', 'Light'];
 
-
-function createTimeSeriesPlot(data) {
     data.forEach(item => {
-        item['Time In'] = new Date(item['Time In']);
-        item['Total Hours'] = Number(item['Total Hours']);
+        const timeSlot = getTimeSlot(item['Time In']);
+        if (!timeSlots[timeSlot]) {
+            timeSlots[timeSlot] = { 'Severe': 0, 'Moderate': 0, 'Light': 0 };
+        }
+        severityLevels.forEach(level => {
+            timeSlots[timeSlot][level] += parseInt(item[level], 10);
+        });
     });
 
-    const sortedData = data.sort((a, b) => a['Time In'] - b['Time In']);
+    const xValues = Object.keys(timeSlots);
+    const yValues = severityLevels;
+    const zValues = yValues.map(severity => xValues.map(timeSlot => timeSlots[timeSlot][severity]));
 
     const trace = {
-        x: sortedData.map(item => item['Time In']),
-        y: sortedData.map(item => item['Total Hours']),
+        x: xValues,
+        y: yValues,
+        z: zValues,
+        type: 'heatmap'
+    };
+
+    const layout = {
+        title: 'Heatmap of Time In vs Overstay Severity',
+        xaxis: { title: 'Time Slot' },
+        yaxis: { title: 'Overstay Severity' },
+		paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: '#1a1e23',
+            font: {
+                color: '#fff' 
+            },
+            xaxis: {
+                title: 'Time In',
+                gridcolor: '#444', 
+                linecolor: '#444',
+                tickcolor: '#fff' 
+            },
+            yaxis: {
+                title: 'Extra Time (Minutes)',
+                gridcolor: '#444',
+                linecolor: '#444',
+                tickcolor: '#fff'
+            },
+            showlegend: false
+    };
+
+    // Plotly.newPlot('timeInVsOverstaySeverityHeatmap', [trace], layout);
+}
+function getTimeSlot(timeIn) {
+    const date = new Date(timeIn);
+    const hours = date.getHours();
+    const startTime = hours.toString().padStart(2, '0') + ':00';
+    const endTime = (hours + 1).toString().padStart(2, '0') + ':00';
+    return startTime + '-' + endTime;
+}
+
+function createTimeSeriesPlot(data) {
+    const parsedData = data.map(item => ({
+        timeIn: new Date(item['Time In']),
+        totalHours: parseFloat(item['Total Hours (H)'])
+    })).sort((a, b) => a.timeIn - b.timeIn);
+
+    const trace = {
+        x: parsedData.map(item => item.timeIn),
+        y: parsedData.map(item => item.totalHours),
         mode: 'lines',
-        type: 'scatter',
-        name: 'Total Hours'
+        type: 'scatter'
     };
 
     const layout = {
         title: 'Time Series of Time In vs Total Hours',
         xaxis: { title: 'Time In' },
-        yaxis: { title: 'Total Hours' }
+        yaxis: { title: 'Total Hours' },
+		paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: '#1a1e23',
+            font: {
+                color: '#fff' 
+            },
+            xaxis: {
+                title: 'Time In',
+                gridcolor: '#444', 
+                linecolor: '#444',
+                tickcolor: '#fff' 
+            },
+            yaxis: {
+                title: 'Extra Time (Minutes)',
+                gridcolor: '#444',
+                linecolor: '#444',
+                tickcolor: '#fff'
+            },
+            showlegend: false
     };
 
     Plotly.newPlot('timeSeriesDiv', [trace], layout);
 }
 
-function calculateZScores(array) {
-    const mean = array.reduce((acc, val) => acc + val, 0) / array.length;
-    const std = Math.sqrt(array.map(val => Math.pow(val - mean, 2)).reduce((acc, val) => acc + val, 0) / array.length);
-    return array.map(val => (val - mean) / std);
-}
-
-// Function for anomaly detection plot
 function createAnomalyDetectionPlot(data) {
-    const extraTimeData = data.map(item => Number(item['Extra Time']));
-    const totalHoursData = data.map(item => Number(item['Total Hours']));
-    const zScores = calculateZScores(extraTimeData);
-    const anomalies = zScores.map((z, index) => Math.abs(z) > 2 ? data[index] : null).filter(item => item);
+    const extraTimeData = data.map(item => {
+        const extraTimeString = item['Extra Time (Minutes)'].trim();
+        const extraTimeValue = parseFloat(extraTimeString);
+        return isNaN(extraTimeValue) ? null : extraTimeValue;
+    }).filter(item => item !== null); 
 
-    const normalTrace = {
-        x: data.map(item => item['Total Hours']),
+    const zScores = calculateZScores(extraTimeData);
+
+    const anomalies = extraTimeData.filter((val, index) => Math.abs(zScores[index]) > 2);
+
+    const trace = {
+        x: data.map(item => new Date(item['Time In'])),
         y: extraTimeData,
         mode: 'markers',
         type: 'scatter',
-        name: 'Normal'
-    };
-
-    const anomalyTrace = {
-        x: anomalies.map(item => item['Total Hours']),
-        y: anomalies.map(item => item['Extra Time']),
-        mode: 'markers',
-        type: 'scatter',
-        name: 'Anomaly',
-        marker: { color: 'red' }
+        marker: {
+            color: zScores.map(z => Math.abs(z) > 2 ? 'red' : 'blue'),
+            size: 12
+        },
+        text: zScores.map((z, index) => `Z-score: ${z.toFixed(2)}, Extra Time: ${extraTimeData[index]}`)
     };
 
     const layout = {
-        title: 'Anomaly Detection on Extra Time',
-        xaxis: { title: 'Total Hours' },
-        yaxis: { title: 'Extra Time' }
+        title: 'Anomaly Detection in Extra Time',
+        xaxis: { title: 'Time In' },
+        yaxis: { title: 'Extra Time (Minutes)' },
+        showlegend: false,
+		paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: '#1a1e23',
+            font: {
+                color: '#fff' 
+            },
+            xaxis: {
+                title: 'Time In',
+                gridcolor: '#444', 
+                linecolor: '#444',
+                tickcolor: '#fff' 
+            },
+            yaxis: {
+                title: 'Extra Time (Minutes)',
+                gridcolor: '#444',
+                linecolor: '#444',
+                tickcolor: '#fff'
+            },
     };
 
-    Plotly.newPlot('anomalyDetectionDiv', [normalTrace, anomalyTrace], layout);
+	console.log("Extra Time Data:", extraTimeData);
+console.log("Z-Scores:", zScores);
+    Plotly.newPlot('anomalyDetectionDiv', [trace], layout);
+}
+
+    
+function calculateZScores(data) {
+    const mean = data.reduce((acc, val) => acc + val, 0) / data.length;
+    const std = Math.sqrt(data.map(val => (val - mean) ** 2).reduce((acc, val) => acc + val, 0) / data.length);
+    return data.map(val => (val - mean) / std);
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const data = await loadCSVData('TestData.csv');
-	createHistogram(data);
+    const data = await loadCSVData('TestData.csv');	
+    createOverstaySeverityBarChart(data);
+    createTimeInVsOverstaySeverityHeatmap(data);
     createTimeSeriesPlot(data);
     createAnomalyDetectionPlot(data);
 });
+  </script>
 
+  <script src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-function toggleTally(element) {
-    element.classList.toggle('active');
-}
-
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="main.js"></script>
-
+</html>
