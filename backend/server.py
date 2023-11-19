@@ -12,6 +12,7 @@ app = FastAPI()
 
 total_users = {} 
 users = {} 
+queue = {}
 
 @app.get('/', response_class=HTMLResponse)
 def get_home(request: Request) -> HTMLResponse:
@@ -29,18 +30,20 @@ def add_student(duration: str):
 ## For adding a student to a queue
 ## Duration is useful so that when the cafe is about to close, student worker can tell them their hours (like hey we close ta 10 when they're here at 8 pm and wanna play for 4 hours)
 @app.post('/queue')
-def add_person(duration: str):
+def add_queue(duration: str):
   #add algorithms here
   ## This route should be called when all the seats are taken. So in the front end, just query select all, check if they're occupied and if they are,
   # call this route with the duration, ill create the fake student data.
   return False
 
 @app.post('/current_users')
-def return_users():
+def get_users():
     ## The front end should have an event listener that sends a request to this route when the student worker presses user dashboard.
     return users
 
-
+@app.post('/current_queue')
+def get_queue():
+    return queue
 if __name__ == "__main__":
   # total_users = {} # total users that came today, dynamically populated
    # users = {} # current users in tec cafe using computers
