@@ -20,19 +20,24 @@ def get_home(request: Request) -> HTMLResponse:
     return HTMLResponse(content=html_content)
 
 ## For assigning a computer to a user
+## Duration is useful again here so the internal algorithm can have a clock and count down.
 @app.post('/user')
 def add_student(duration: str):
     #add algorithms here
     return False
 
 ## For adding a student to a queue
+## Duration is useful so that when the cafe is about to close, student worker can tell them their hours (like hey we close ta 10 when they're here at 8 pm and wanna play for 4 hours)
 @app.post('/queue')
 def add_person(duration: str):
   #add algorithms here
+  ## This route should be called when all the seats are taken. So in the front end, just query select all, check if they're occupied and if they are,
+  # call this route with the duration, ill create the fake student data.
   return False
 
 @app.post('/current_users')
 def return_users():
+    ## The front end should have an event listener that sends a request to this route when the student worker presses user dashboard.
     return users
 
 
