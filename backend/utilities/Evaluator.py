@@ -16,25 +16,24 @@ class Evaluator:
                 count = 0
                 if PID in Evaluator.students:
                     count += 1
-                    Evaluator.students[PID].update({PID: [Name, str(count), str(int(Evaluator.students[PID]) + int(Extra_Time)), [S_Tally, M_Tally, L_Tally]]})
+                    data = Evaluator.students[PID]
+                    Evaluator.students[PID].update({PID: [Name, str(data[1] + Total_Time), str(count + data[2]), str(int(data[3]) + int(Extra_Time)), [data[4] + S_Tally, data[5] + M_Tally, data[6] + L_Tally]]})
                 else:
-                    Evaluator.students[PID] = [Name, str(count), str(Extra_Time), [S_Tally, M_Tally, L_Tally]]
+                    Evaluator.students[PID] = [Name, str(Total_Time), str(count), str(Extra_Time), [S_Tally, M_Tally, L_Tally]]
     
     def evaluate(self, month):
         if not os.path.exists(os.getcwd() + "\\scores\\"):
                 os.makedirs(os.getcwd() + "\\scores\\")
-        if not os.path.exists(os.getcwd() + "\\scores\\" + month):
-                os.makedirs(os.getcwd() + "\\scores\\" + month)   
-        File = os.path.join(os.getcwd() + "\\scores\\" + month, month + "_ScoreData.csv")     
+        File = os.path.join(os.getcwd() + "\\scores\\", month + "_ScoreData.csv")     
         with open(File, 'w', newline='') as file:
             writer = csv.writer(file)   
-            field = ["PID", "Name", "Responsibility Score Deduction, Tallies (Severe, Moderate, Light)"]
+            field = ["PID", "Name", "Total Time", "Counts", "Extra Time", "Responsibility Score Deduction", "Tallies (Severe, Moderate, Light)"]
             writer.writerow(field)
 
             for PID in Evaluator.students:
-                score = (2) * float(Evaluator.students[PID][1]) * (float(Evaluator.students[PID][2])/10) + (1.5) * float(Evaluator.students[PID][2])
+                score = (2) * float(Evaluator.students[PID][2]) * (float(Evaluator.students[PID][3])/10) + (1.5) * float(Evaluator.students[PID][3])
                 data = Evaluator.students[PID]
-                writer.writerow([PID, data[0], score, [data[3][0], data[3][1], data[3][2]]])
+                writer.writerow([PID, data[0], data[1], data[2], data[3], score, [data[4][0], data[4][1], data[4][2]]])
 
 if __name__ == "__main__": 
     list = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -52,4 +51,3 @@ if __name__ == "__main__":
     anEvaluator = Evaluator(filePath)
     anEvaluator.evaluate(month)
     #print(anEvaluator.students)
-

@@ -17,11 +17,11 @@ class Person:
         File = os.path.join(os.getcwd() + "\\data\\" + month, str(datetime.date.today()) + "_TestData.csv")     
         with open(File, 'w', newline='') as file:
             writer = csv.writer(file)   
-            field = ["PID", "Name", "Time In", "Total Hours (H)", "Extra Time (Minutes), Severe, Moderate, Light"]
+            field = ["PID", "Name", "Time In", "Total Hours (H)", "Extra Time (Minutes)", "Severe", "Moderate", "Light"]
             writer.writerow(field)
 
             for _ in range (number):
-               writer.writerow([Person.__generatePID(), Person.__generateName(), Person.__generateTimeIn(), Person.__generateNumber(0,60), Person.__generateNumber(0,1), Person.__generateNumber(0,2), Person.__generateNumber(0,3)])
+               writer.writerow([Person.__generatePID(), Person.__generateName(), Person.__generateTimeIn(), Person.__generateNumber(0,4), Person.__generateNumber(0,60), Person.__generateNumber(0,1), Person.__generateNumber(0,2), Person.__generateNumber(0,3)])
 
     @staticmethod
     def createPerson():
