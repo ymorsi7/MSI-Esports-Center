@@ -6,7 +6,7 @@ import datetime
 from random import randint
 
 
-class Person:
+class Tester:
     @staticmethod
     def createTest(number):
         month = datetime.datetime.now().strftime("%B")
@@ -21,11 +21,11 @@ class Person:
             writer.writerow(field)
 
             for _ in range (number):
-               writer.writerow([Person.__generatePID(), Person.__generateName(), Person.__generateTimeIn(), Person.__generateNumber(0,4), Person.__generateNumber(0,60), Person.__generateNumber(0,1), Person.__generateNumber(0,2), Person.__generateNumber(0,3)])
+               writer.writerow([Tester.__generatePID(), Tester.__generateName(), Tester.__generateTimeIn(), Tester.__generateNumber(0,4), Tester.__generateNumber(0,60), Tester.__generateNumber(0,1), Tester.__generateNumber(0,2), Tester.__generateNumber(0,3)])
 
     @staticmethod
     def createPerson():
-        return [Person.__generatePID(), Person.__generateName(), Person.__generateTimeIn(), Person.__generateNumber(0,60), 0, 0, 0]
+        return [Tester.__generatePID(), Tester.__generateName(), Tester.__generateTimeIn(), Tester.__generateNumber(0,60), 0, 0, 0]
     
     @staticmethod
     def __generatePID():
@@ -54,4 +54,4 @@ class Person:
         return str(randint(min, max))
 
 if __name__ == "__main__":
-    Person.createTest(100)
+    Tester.createTest(100)
