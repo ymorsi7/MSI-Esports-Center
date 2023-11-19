@@ -7,7 +7,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-	<link rel="icon" href="icon.jpeg" />
+	<link rel="icon" href="src/icon.jpeg" />
 
  <style>
       :root {
@@ -303,7 +303,7 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
   </body>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      fetch("TestData.csv") // csv file
+      fetch("src/TestData.csv") // csv file
         .then((response) => response.text())
         .then((csvText) =>
           Papa.parse(csvText, {
@@ -607,7 +607,7 @@ function calculateZScores(data) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const data = await loadCSVData('TestData.csv');	
+    const data = await loadCSVData('src/TestData.csv');	
     createOverstaySeverityBarChart(data);
     createTimeInVsOverstaySeverityHeatmap(data);
     createTimeSeriesPlot(data);
@@ -615,7 +615,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
   </script>
 
-  <script src="main.js"></script>
+  <script src="src/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </html>
