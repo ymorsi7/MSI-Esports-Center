@@ -204,7 +204,7 @@ input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {display: none;}
 	<input type="radio" id="tabToggle03" name="tabs" value="3" />
 	<label for="tabToggle03">Analytics</label>
 	<input type="radio" id="tabToggle04" name="tabs" value="4" />
-	<label for="tabToggle04">Export Analytics to PDF</label>
+	<label for="tabToggle04">Queue</label>
 	<tab-content>
 
 		<div class="layout">
@@ -267,24 +267,34 @@ input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {display: none;}
 					</tr>
 				</thead>
 				<tbody id="userData">
-					<!-- Data rows will be inserted here by JavaScript -->
+					<!-- Data rows here -->
 				</tbody>
 			</table>
 		</div>
 	</tab-content>
 	<tab-content>
-		<p>TAB [ <tab-number>03</tab-number> ] content</p>
-		<p>CSS Grid is the...</p>
+		<p>Analytics</p>
+		<div>
+			<p>Histogram of Total Hours</p>
+			<iframe src="histogramPlot.html" width="100%" height="300"></iframe>
+
+
+			<p>Time Series of Time In vs Total Hours</p>
+			<iframe src="timeSeries.html" width="100%" height="300"></iframe>
+
+			<p>Anomaly Detection on Extra Time</p>
+			<iframe src="anomalyDet.html" width="100%" height="300"></iframe>
+		</div>
 	</tab-content>
 	<tab-content>
-		<p>TAB [ <tab-number>04</tab-number> ] content</p>
+		<p>Queue</p>
 		<p>CSS Grid is the future!</p>
 	</tab-content>
 </tab-container>
 </body>
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-    fetch('testSeat\src\TestData.csv') // csv file
+    fetch('TestData.csv') // csv file
         .then(response => response.text())
         .then(csvText => Papa.parse(csvText, {
             header: true,
