@@ -4,10 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TEC</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -299,33 +295,7 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
           <div id="timeSeriesDiv"></div>
           <div id="anomalyDetectionDiv"></div>
         </div>
-        <button id ="export_button" class = "square" style = "color:rgb(60, 60, 60)"> EXPORT </button>
-<!-- 3.5 turbo start-->
-<!-- <link rel="stylesheet" type="text/css" href="aiAssets/css/style.css" />
-<script src = "aiAssets/js/main.js"> </script>
-        <main id="main">
-          <div class="container">
-            </ul>
-            <div class="tab-content">
-              <!-- text analysis -->
-              <!-- <div id="text-analysis" class="tab-pane fade show active">
-                <br><br>
-                <br><br><br><br><br><br>
-                <form id="analysisForm" action="/" method="post">
-                  <button type="submit" class="btn btn-primary">Analyze Visitor Data</button>
-                </form>
-                {% if text %}
-                <h3 class="mt-4">Analysis Result:</h3>
-                <p><strong>Sentiment:</strong> {{ sentiment }}</p>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-          <br><br><br><br><br><br>
-        </main> -->
-
-<!-- 3.5 turbo end-->
-
+        <button id ="export_button" class = "square"> EXPORT </button>
       </tab-content>
       <tab-content>
         <p>Queue</p>
@@ -647,12 +617,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
   </script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-  <script src="https://unpkg.com/compromise"></script>
-  <script src="https://unpkg.com/compromise-sentiments"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="src/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 

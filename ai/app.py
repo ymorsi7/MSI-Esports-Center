@@ -22,7 +22,7 @@ def index():
     text = None
     api_key = None
     if request.method == 'POST':
-        api_key = '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'
+        api_key = 'sk-PRIVATE'
         text = '''PID,Name,Time In,Total Hours (H), Extra Time (Minutes), Severe, Moderate, Light
         A86513003,Christopher Hoag,2023-11-18 03:53:12,1,3,0,1,2
         A24945316,Ivan Dillehay,2023-11-18 02:00:10,1,19,0,0,2
