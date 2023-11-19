@@ -377,21 +377,18 @@ function createHistogram(data) {
     Plotly.newPlot('histogramDiv', [trace], layout);
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const data = await loadCSVData('TestData.csv');
-    createHistogram(data);
-
-
-});
 
 function createTimeSeriesPlot(data) {
     data.forEach(item => {
         item['Time In'] = new Date(item['Time In']);
+        item['Total Hours'] = Number(item['Total Hours']);
     });
 
+    const sortedData = data.sort((a, b) => a['Time In'] - b['Time In']);
+
     const trace = {
-        x: data.map(item => item['Time In']),
-        y: data.map(item => item['Total Hours']),
+        x: sortedData.map(item => item['Time In']),
+        y: sortedData.map(item => item['Total Hours']),
         mode: 'lines',
         type: 'scatter',
         name: 'Total Hours'
@@ -414,7 +411,8 @@ function calculateZScores(array) {
 
 // Function for anomaly detection plot
 function createAnomalyDetectionPlot(data) {
-    const extraTimeData = data.map(item => parseFloat(item['Extra Time']));
+    const extraTimeData = data.map(item => Number(item['Extra Time']));
+    const totalHoursData = data.map(item => Number(item['Total Hours']));
     const zScores = calculateZScores(extraTimeData);
     const anomalies = zScores.map((z, index) => Math.abs(z) > 2 ? data[index] : null).filter(item => item);
 
@@ -446,13 +444,16 @@ function createAnomalyDetectionPlot(data) {
 
 document.addEventListener('DOMContentLoaded', async () => {
     const data = await loadCSVData('TestData.csv');
+	createHistogram(data);
     createTimeSeriesPlot(data);
     createAnomalyDetectionPlot(data);
 });
 
+
 function toggleTally(element) {
     element.classList.toggle('active');
 }
+
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
