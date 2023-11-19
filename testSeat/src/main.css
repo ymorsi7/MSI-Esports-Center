@@ -1,0 +1,129 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 10px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .square {
+    border: 2px solid #ddd;
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 5px;
+    background-color: #fafafa;
+  }
+  .square:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  .square.active {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border-color: #4CAF50;
+  }
+  .timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    color: #fff;
+  }
+  .gap8 {
+    grid-column: 8;   
+  }
+  .gap7 {
+    grid-column: 7;   
+  }
+  .gap {
+    border: 0px solid #ddd;
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 5px;
+  }
+  .empty {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+
+
+
+
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 10px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .square {
+    border: 2px solid #ddd;
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 5px;
+    background-color: #fafafa;
+  }
+  .square:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  .square.active {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border-color: #4CAF50;
+  }
+  .timer {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size:.7em;
+    color: #fff;
+  }
+  .gap {
+    border: 0px solid #ddd;
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 5px;
+  }
+  .empty {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }  
