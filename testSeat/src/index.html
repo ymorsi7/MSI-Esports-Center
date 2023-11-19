@@ -278,10 +278,9 @@ input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {display: none;}
 			<p>Histogram of Hours (Total)</p>
 			<div id="histogramDiv"></div>
 			<p>Time Series of Time In vs Total Hours</p>
-			<iframe src="timeSeries.html" width="100%" height="300"></iframe>
-
+			<div id="timeSeriesDiv"></div>
 			<p>Anomaly Detection on Extra Time</p>
-			<iframe src="anomalyDet.html" width="100%" height="300"></iframe>
+			<div id="anomalyDetectionDiv"></div>
 		</div>
 	</tab-content>
 	<tab-content>
@@ -379,16 +378,83 @@ function createHistogram(data) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const data = await loadCSVData('path/to/TestData.csv');
+    const data = await loadCSVData('TestData.csv');
     createHistogram(data);
 
 
+});
+
+function createTimeSeriesPlot(data) {
+    data.forEach(item => {
+        item['Time In'] = new Date(item['Time In']);
+    });
+
+    const trace = {
+        x: data.map(item => item['Time In']),
+        y: data.map(item => item['Total Hours']),
+        mode: 'lines',
+        type: 'scatter',
+        name: 'Total Hours'
+    };
+
+    const layout = {
+        title: 'Time Series of Time In vs Total Hours',
+        xaxis: { title: 'Time In' },
+        yaxis: { title: 'Total Hours' }
+    };
+
+    Plotly.newPlot('timeSeriesDiv', [trace], layout);
+}
+
+function calculateZScores(array) {
+    const mean = array.reduce((acc, val) => acc + val, 0) / array.length;
+    const std = Math.sqrt(array.map(val => Math.pow(val - mean, 2)).reduce((acc, val) => acc + val, 0) / array.length);
+    return array.map(val => (val - mean) / std);
+}
+
+// Function for anomaly detection plot
+function createAnomalyDetectionPlot(data) {
+    const extraTimeData = data.map(item => parseFloat(item['Extra Time']));
+    const zScores = calculateZScores(extraTimeData);
+    const anomalies = zScores.map((z, index) => Math.abs(z) > 2 ? data[index] : null).filter(item => item);
+
+    const normalTrace = {
+        x: data.map(item => item['Total Hours']),
+        y: extraTimeData,
+        mode: 'markers',
+        type: 'scatter',
+        name: 'Normal'
+    };
+
+    const anomalyTrace = {
+        x: anomalies.map(item => item['Total Hours']),
+        y: anomalies.map(item => item['Extra Time']),
+        mode: 'markers',
+        type: 'scatter',
+        name: 'Anomaly',
+        marker: { color: 'red' }
+    };
+
+    const layout = {
+        title: 'Anomaly Detection on Extra Time',
+        xaxis: { title: 'Total Hours' },
+        yaxis: { title: 'Extra Time' }
+    };
+
+    Plotly.newPlot('anomalyDetectionDiv', [normalTrace, anomalyTrace], layout);
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const data = await loadCSVData('TestData.csv');
+    createTimeSeriesPlot(data);
+    createAnomalyDetectionPlot(data);
 });
 
 function toggleTally(element) {
     element.classList.toggle('active');
 }
 </script>
-<script src = "main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="main.js"></script>
+
