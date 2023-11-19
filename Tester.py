@@ -1,14 +1,20 @@
 import csv
 import names
-from random import randint
+import os.path
 import random as random
 import datetime
+from random import randint
+
 
 class Person:
     @staticmethod
     def createTest(number):
-        with open(str(datetime.date.today()) + "_TestData.csv", 'w', newline='') as file:
-            writer = csv.writer(file)
+        print(os.path.exists(os.getcwd() + "\\data\\"))
+        if not os.path.exists(os.getcwd() + "\\data\\"):
+            os.makedirs(os.getcwd() + "\\data\\")
+        File = os.path.join(os.getcwd() + "\\data\\", str(datetime.date.today()) + "_TestData.csv")     
+        with open(File, 'w', newline='') as file:
+            writer = csv.writer(file)   
             field = ["PID", "Name", "Time In", "Total Hours (H)", "Extra Time (Minutes)"]
             writer.writerow(field)
 
