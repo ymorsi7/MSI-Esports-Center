@@ -43,16 +43,11 @@ function selectSeat(element, seatId) {
         })
         .catch(error => console.error('Error:', error));
       }
-      document.querySelector('#queue_label').addEventListener('click', (event) => {
-        // Submit the POST request
-        alert("here");
-        server_request('/current_queue', {}, 'post', (response) => {
-          alert("working");
-        });
 
     document.querySelector('#export_button').addEventListener('click', (event) => {
         // Submit the POST request
         server_request('/export_pdf', {}, 'post', (response) => {
+          alert("HELLO");
           if (response) {
             location.replace(`/pdf/${response}`)
           }

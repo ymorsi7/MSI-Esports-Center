@@ -58,7 +58,6 @@ def get_home(pdf_path: str) -> FileResponse:
     headers = {
         "Content-Disposition": "inline; filename=sample.pdf"
     }  
-    
     location = os.getcwd() + "/backend/PDF/" + pdf_path
     response = FileResponse(location, media_type="application/pdf", headers=headers)
     return response
