@@ -3,6 +3,7 @@ from fastapi import FastAPI, Request, Response
 from fastapi.responses import HTMLResponse
 from starlette.responses import JSONResponse
 from datetime import time
+from utilities.Tester import Tester
 import uvicorn      
 
 ## make sure to import your student and computer object files
@@ -10,9 +11,9 @@ import uvicorn
 
 app = FastAPI()             
 
-total_users = {} 
-users = {} 
-queue = {}
+total_users = [] 
+users = []
+queue = []
 
 @app.get('/', response_class=HTMLResponse)
 def get_home(request: Request) -> HTMLResponse:
@@ -25,7 +26,9 @@ def get_home(request: Request) -> HTMLResponse:
 @app.post('/user')
 def add_student(duration: str):
     #add algorithms here
-    return False
+    aPerson = Tester.createPerson() ## PID , NAME, TIME IN , DURATION, EXTRA MINUTES, SEVERE TALLY, MODERATE TALLY, LIGHT TALLY
+    ## Associate aPerson with a computer and add it to users and total users
+    return #.append([str(aPerson[0]), str(aPerson[1]), duration])
 
 ## For adding a student to a queue
 ## Duration is useful so that when the cafe is about to close, student worker can tell them their hours (like hey we close ta 10 when they're here at 8 pm and wanna play for 4 hours)
@@ -34,7 +37,8 @@ def add_queue(duration: str):
   #add algorithms here
   ## This route should be called when all the seats are taken. So in the front end, just query select all, check if they're occupied and if they are,
   # call this route with the duration, ill create the fake student data.
-  return False
+  aPerson = Tester.createPerson()
+  return queue.append([str(aPerson[0]), str(aPerson[1]), duration])
 
 @app.post('/current_users')
 def get_users():
