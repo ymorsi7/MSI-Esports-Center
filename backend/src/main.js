@@ -27,3 +27,30 @@ function selectSeat(element, seatId) {
       }
     }, 1000);
   }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    function server_request(url, data={}, verb, callback) {
+        return fetch(url, {
+          credentials: 'same-origin',
+          method: verb,
+          body: JSON.stringify(data),
+          headers: {'Content-Type': 'application/json'}
+        })
+        .then(response => response.json())
+        .then(response => {
+          if(callback)
+            callback(response);
+        })
+        .catch(error => console.error('Error:', error));
+      }
+
+    document.querySelector('.logout_button').addEventListener('click', (event) => {
+        // Submit the POST request
+        server_request('/logout', {}, 'POST', (response) => {
+          if (response.session_id == 0) {
+            location.replace('/login');
+          }
+        });
+  
+    });
+  });
