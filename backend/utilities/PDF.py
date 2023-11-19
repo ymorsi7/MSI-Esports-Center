@@ -48,13 +48,14 @@ class PDF:
         ])
 
         colWidths = [
-            3.4 * cm, 
-            4.0 * cm,  
+            2.2 * cm, 
+            3.6 * cm,  
             5.0 * cm,  
-            1.2 * cm,  
-            2.5 * cm,  
-            6 * cm,  
-            1.1 * cm,  
+            0.4 * cm,  
+            2.4 * cm,  
+            1.4 * cm,  
+            1.4 * cm, 
+            1.4 * cm 
         ]
 
         for index, row in enumerate(data):

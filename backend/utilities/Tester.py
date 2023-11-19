@@ -17,7 +17,7 @@ class Tester:
         File = os.path.join(os.getcwd() + "\\data\\" + month, str(datetime.date.today()) + "_TestData.csv")     
         with open(File, 'w', newline='') as file:
             writer = csv.writer(file)   
-            field = ["PID", "Name", "Time In", "Total Hours (H)", "Extra Time (Minutes)", "Severe", "Moderate", "Light"]
+            field = ["PID", "Name", "Time In", "Total_Hrs", "Extra_Min", "S", "M", "L"]
             writer.writerow(field)
 
             for _ in range (number):
