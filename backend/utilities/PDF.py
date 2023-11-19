@@ -10,7 +10,7 @@ import os
 class PDF:
     @staticmethod
     def createPDF():
-        file = os.path.join(os.getcwd() + "\\backend\\utilities\\", "TestData.csv")     
+        file = os.path.join(os.getcwd() + "\\backend\\utilities/", "TestData.csv")     
         with open(file, "r") as csvfile:
             data = list(csv.reader(csvfile))
 
