@@ -47,9 +47,8 @@ function selectSeat(element, seatId) {
     document.querySelector('#export_button').addEventListener('click', (event) => {
         // Submit the POST request
         server_request('/export_pdf', {}, 'post', (response) => {
-          alert("HELLO");
-          if (response.message) {
-            location.replace(response.message);
+          if (response) {
+            location.replace(`/pdf/${response}`)
           }
         });
   

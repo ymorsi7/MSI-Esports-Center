@@ -77,4 +77,4 @@ class PDF:
             topMargin=40,
             bottomMargin=28)
         archivo_pdf.build(elements)
-        return 'backend/PDF/TEC_{}.pdf'.format((datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d'))
+        return 'TEC_{}.pdf'.format((datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d'))

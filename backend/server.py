@@ -1,6 +1,6 @@
 # Necessary Imports
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, Response
+from fastapi.responses import HTMLResponse, Response, FileResponse
 from fastapi.staticfiles import StaticFiles
 from datetime import time
 from utilities.Tester import Tester
@@ -30,6 +30,7 @@ def get_home(request: Request) -> HTMLResponse:
 def add_student(position: str, duration: str):
     #add algorithms here
     aPerson = Tester.createPerson() ## PID , NAME, TIME IN , DURATION, EXTRA MINUTES, SEVERE TALLY, MODERATE TALLY, LIGHT TALLY
+    ## 
     ## Associate aPerson with a computer and add it to users and total users
     return #.append([str(aPerson[0]), str(aPerson[1]), duration])
 
@@ -38,6 +39,7 @@ def delete_user(PID: str):
     if users[PID]: 
         del users[PID]
     return True
+
 ## For adding a student to a queue
 ## Duration is useful so that when the cafe is about to close, student worker can tell them their hours (like hey we close ta 10 when they're here at 8 pm and wanna play for 4 hours)
 @app.post('/queue')
@@ -55,12 +57,21 @@ def delete_user(PID: str):
         del queue[PID]
     return True
 
+@app.get('/pdf/{pdf_path}', response_class=HTMLResponse)
+def get_home(pdf_path: str) -> FileResponse:
+    headers = {
+        "Content-Disposition": "inline; filename=sample.pdf"
+    }  
+    
+    location = os.getcwd() + "/backend/PDF/" + pdf_path
+    response = FileResponse(location, media_type="application/pdf", headers=headers)
+    return response
+
+
 @app.post('/export_pdf')
-def get_pdf(request:Request, response:Response) -> HTMLResponse:
-    location = os.getcwd() + '/' + PDF.createPDF()
-    with open(location, "r") as file:
-        html_content = file.read()
-    return HTMLResponse(content=html_content)
+def get_pdf():
+    date = PDF.createPDF()
+    return date
 
 @app.post('/current_users')
 def get_users():
@@ -70,5 +81,6 @@ def get_users():
 @app.post('/current_queue')
 def get_queue():
     return queue
+
 if __name__ == "__main__":
     uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=True)
