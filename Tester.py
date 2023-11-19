@@ -9,17 +9,19 @@ from random import randint
 class Person:
     @staticmethod
     def createTest(number):
-        print(os.path.exists(os.getcwd() + "\\data\\"))
+        month = datetime.datetime.now().strftime("%B")
         if not os.path.exists(os.getcwd() + "\\data\\"):
             os.makedirs(os.getcwd() + "\\data\\")
-        File = os.path.join(os.getcwd() + "\\data\\", str(datetime.date.today()) + "_TestData.csv")     
+        if not os.path.exists(os.getcwd() + "\\data\\" + month):
+                os.makedirs(os.getcwd() + "\\data\\" + month)
+        File = os.path.join(os.getcwd() + "\\data\\" + month, str(datetime.date.today()) + "_TestData.csv")     
         with open(File, 'w', newline='') as file:
             writer = csv.writer(file)   
-            field = ["PID", "Name", "Time In", "Total Hours (H)", "Extra Time (Minutes)"]
+            field = ["PID", "Name", "Time In", "Total Hours (H)", "Extra Time (Minutes), Severe, Moderate, Light"]
             writer.writerow(field)
 
             for _ in range (number):
-               writer.writerow([Person.__generatePID(), Person.__generateName(), Person.__generateTimeIn(), Person.__generateNumber(1,4), Person.__generateNumber(0,60)])
+               writer.writerow([Person.__generatePID(), Person.__generateName(), Person.__generateTimeIn(), Person.__generateNumber(1,4), Person.__generateNumber(0,60), Person.__generateNumber(0,1), Person.__generateNumber(0,2), Person.__generateNumber(0,3)], )
 
     @staticmethod
     def __generatePID():
