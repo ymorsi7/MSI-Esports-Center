@@ -9,26 +9,22 @@ import os
 class PDF:
     @staticmethod
     def createPDF():
-        print(os.getcwd())
         file = os.path.join(os.getcwd() + "\\backend\\utilities\\", "TestData.csv")     
         with open(file, "r") as csvfile:
             data = list(csv.reader(csvfile))
 
         elements = []
 
-# PDF Text - Styles
         styles = getSampleStyleSheet()
         styleNormal = styles['Normal']
 
-# PDF Text - Content
         line1 = 'UC San Diego TEC Center Daily User Report'
         line2 = 'Date: {}'.format(datetime.datetime.now().strftime("%m-%d-%Y"))
         elements.append(Paragraph(line1, styleNormal))
         elements.append(Paragraph(line2, styleNormal))
         elements.append(Spacer(inch, .25 * inch))
 
-        # PDF Table - Styles
-        # [(start_column, start_row), (end_column, end_row)]
+
         all_cells = [(0, 0), (-1, -1)]
         header = [(0, 0), (-1, 0)]
         column0 = [(0, 0), (0, -1)]
@@ -50,18 +46,16 @@ class PDF:
             ('ALIGN', column6[0], column6[1], 'RIGHT'),
         ])
 
-        # PDF Table - Column Widths
         colWidths = [
-            3.4 * cm,  # Column 0
-            4.0 * cm,  # Column 1
-            5.0 * cm,  # Column 2
-            1.2 * cm,  # Column 3
-            2.5 * cm,  # Column 4
-            6 * cm,  # Column 5
-            1.1 * cm,  # Column 6
+            3.4 * cm, 
+            4.0 * cm,  
+            5.0 * cm,  
+            1.2 * cm,  
+            2.5 * cm,  
+            6 * cm,  
+            1.1 * cm,  
         ]
 
-        # PDF Table - Strip '[]() and add word wrap to column 5
         for index, row in enumerate(data):
             for col, val in enumerate(row):
                 if col != 5 or index == 0:
@@ -69,18 +63,17 @@ class PDF:
                 else:
                     data[index][col] = Paragraph(val, styles['Normal'])
 
-        # Add table to elements
         t = Table(data, colWidths=colWidths)
         t.setStyle(table_style)
         elements.append(t)
-
-        # Generate PDF
+        if not os.path.exists(os.getcwd() + "/backend/PDF/"):
+            os.makedirs(os.getcwd() + "/backend/PDF/")
         archivo_pdf = SimpleDocTemplate(
-            'TEC_{}.pdf'.format(datetime.datetime.now().strftime("%Y-%m-%d")),
+            'backend/PDF/TEC_{}.pdf'.format(datetime.datetime.now().strftime("%Y-%m-%d")),
             pagesize=letter,
             rightMargin=40,
             leftMargin=40,
             topMargin=40,
             bottomMargin=28)
         archivo_pdf.build(elements)
-        return archivo_pdf
+        return True

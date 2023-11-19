@@ -46,22 +46,8 @@ function selectSeat(element, seatId) {
 
     document.querySelector('#export_button').addEventListener('click', (event) => {
         // Submit the POST request
-        var body = {
-          id: 1,
-          text: 'hello world',
-        };
-
-        fetch('/export_pdf', {
-          method: 'POST',
-          body: JSON.stringify(body),
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        }).then(function(resp) {
-          return resp.blob();
-        }).then(function(blob) {
-          alert(blob);
-          return download(blob, "CUSTOM_NAME.pdf");
+        server_request('/export_pdf', {}, 'POST', (response) => {
+          download(response)
         });
   
     });
