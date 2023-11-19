@@ -53,4 +53,6 @@ function selectSeat(element, seatId) {
         });
   
     });
+
+    
   });

@@ -23,6 +23,12 @@ def get_home(request: Request) -> HTMLResponse:
         html_content = file.read()
     return HTMLResponse(content=html_content)
 
+@app.get('/turbo', response_class=HTMLResponse)
+def get_home(request: Request) -> HTMLResponse:
+    with open("ai/templates/index.html", "r") as file:
+        html_content = file.read()
+    return HTMLResponse(content=html_content)
+
 ## For assigning a computer to a user
 ## Duration is useful again here so the internal algorithm can have a clock and count down.
 @app.post('/user')
