@@ -21,7 +21,7 @@ class Person:
             writer.writerow(field)
 
             for _ in range (number):
-               writer.writerow([Person.__generatePID(), Person.__generateName(), Person.__generateTimeIn(), Person.__generateNumber(1,4), Person.__generateNumber(0,60), Person.__generateNumber(0,1), Person.__generateNumber(0,2), Person.__generateNumber(0,3)], )
+               writer.writerow([Person.__generatePID(), Person.__generateName(), Person.__generateTimeIn(), Person.__generateNumber(1,4), Person.__generateNumber(0,60), Person.__generateNumber(0,1), Person.__generateNumber(0,2), Person.__generateNumber(0,3)])
 
     @staticmethod
     def __generatePID():
