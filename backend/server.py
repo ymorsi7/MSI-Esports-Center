@@ -1,11 +1,13 @@
 # Necessary Imports
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from datetime import time
 from utilities.Tester import Tester
 from utilities.PDF import PDF
 import uvicorn      
+import os
+
 ## make sure to import your student and computer object files
 
 
@@ -53,9 +55,12 @@ def delete_user(PID: str):
         del queue[PID]
     return True
 
-@app.post("/export_pdf")
-def create_pdf():
-    return PDF.createPDF()
+@app.post('/export_pdf')
+def get_pdf(request:Request, response:Response) -> HTMLResponse:
+    location = os.getcwd() + '/' + PDF.createPDF()
+    with open(location, "r") as file:
+        html_content = file.read()
+    return HTMLResponse(content=html_content)
 
 @app.post('/current_users')
 def get_users():

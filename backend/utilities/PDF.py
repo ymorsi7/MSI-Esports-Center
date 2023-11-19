@@ -1,4 +1,5 @@
 import csv
+from datetime import timedelta
 import datetime
 from reportlab.lib.units import cm, inch
 from reportlab.lib import colors
@@ -69,11 +70,11 @@ class PDF:
         if not os.path.exists(os.getcwd() + "/backend/PDF/"):
             os.makedirs(os.getcwd() + "/backend/PDF/")
         archivo_pdf = SimpleDocTemplate(
-            'backend/PDF/TEC_{}.pdf'.format(datetime.datetime.now().strftime("%Y-%m-%d")),
+            'backend/PDF/TEC_{}.pdf'.format((datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d')),
             pagesize=letter,
             rightMargin=40,
             leftMargin=40,
             topMargin=40,
             bottomMargin=28)
         archivo_pdf.build(elements)
-        return True
+        return 'backend/PDF/TEC_{}.pdf'.format((datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d'))
