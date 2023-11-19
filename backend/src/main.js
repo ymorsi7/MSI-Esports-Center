@@ -44,12 +44,24 @@ function selectSeat(element, seatId) {
         .catch(error => console.error('Error:', error));
       }
 
-    document.querySelector('.logout_button').addEventListener('click', (event) => {
+    document.querySelector('#export_button').addEventListener('click', (event) => {
         // Submit the POST request
-        server_request('/logout', {}, 'POST', (response) => {
-          if (response.session_id == 0) {
-            location.replace('/login');
-          }
+        var body = {
+          id: 1,
+          text: 'hello world',
+        };
+
+        fetch('/export_pdf', {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }).then(function(resp) {
+          return resp.blob();
+        }).then(function(blob) {
+          alert(blob);
+          return download(blob, "CUSTOM_NAME.pdf");
         });
   
     });

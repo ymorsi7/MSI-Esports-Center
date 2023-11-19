@@ -4,8 +4,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from datetime import time
 from utilities.Tester import Tester
+from utilities.PDF import PDF
 import uvicorn      
-import os
 ## make sure to import your student and computer object files
 
 
@@ -18,7 +18,6 @@ queue = {}
 ## Should actually return users for this as well
 @app.get('/', response_class=HTMLResponse)
 def get_home(request: Request) -> HTMLResponse:
-    print(os.getcwd())
     with open("backend/src/index.html", "r") as file:
         html_content = file.read()
     return HTMLResponse(content=html_content)
@@ -56,8 +55,7 @@ def delete_user(PID: str):
 
 @app.post("/export_pdf")
 def create_pdf():
-    ## Algorithms
-    return False
+    return PDF.createPDF()
 
 @app.post('/current_users')
 def get_users():

@@ -7,6 +7,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
 	<link rel="icon" href="src/icon.jpeg" />
 
  <style>
@@ -291,10 +292,10 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
         <div>
           <div id="overstaySeverityBarChart"></div>
           <div id="timeInVsOverstaySeverityHeatmap"></div>
-
           <div id="timeSeriesDiv"></div>
           <div id="anomalyDetectionDiv"></div>
         </div>
+        <button id ="export_button" class = "square"> EXPORT </button>
       </tab-content>
       <tab-content>
         <p>Queue</p>
@@ -612,6 +613,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     createTimeInVsOverstaySeverityHeatmap(data);
     createTimeSeriesPlot(data);
     createAnomalyDetectionPlot(data);
+    
 });
   </script>
 
