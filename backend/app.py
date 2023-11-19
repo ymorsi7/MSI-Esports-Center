@@ -1,32 +1,38 @@
-# Solution to track/manage (user session) times at each PC
-# Goal: improve (queue time) and streamline organization of (TEC usage).
+# Necessary Imports
+from fastapi import FastAPI, Request, Response
+from fastapi.responses import HTMLResponse, RedirectResponse        
+from fastapi.staticfiles import StaticFiles      
+from fastapi.templating import Jinja2Templates
+from starlette.responses import JSONResponse
+from datetime import time
+from utilities.Tester import Person
+import random
+import threading
+import uvicorn      # Used for running the app directly through Python
 
-# Recommendation
-# 1. Queue management with PID
-# 2. Track (user session) for each PC
-# 3. Make layout/status of PC managable, for scalibility.
-from Student import make_student
-import Comp
+#app = FastAPI()                                   
+#static_files = StaticFiles(directory='public')    
+#views = Jinja2Templates(directory="public/views")
+#app.mount('/public', static_files, name='public') 
+#app.mount("/imgs", StaticFiles(directory="public/imgs"), name="imgs")
+#app.mount("/css", StaticFiles(directory="public/css"), name="css")
+#app.mount("/js", StaticFiles(directory="public/js"), name="js")
 
-from flask import Flask
+#@app.get('/', response_class=HTMLResponse)
+#def get_home(request: Request) -> HTMLResponse:
+#    return HTMLResponse(content=views.get_template("home.html").render(), status_code=200)
 
-app = Flask(__name__)
-@app.route("/")         # Runs when root is reached
-def main():
-    computers = {}
-    queue = []
-    for alp, num in zip(["A","B","C","D","E"], [5,5,6,6,4]):
-        for i in range(1,num+1):
-            computers[alp+str(i)] = Comp.Comp(alp+str(i))
-
-    # for comp in computers.values(): print(comp.cid)        # list all computers.
-
-    def assign(cid, pid, desired_time):
-        if computers[cid].open:
-            computers[cid].start(pid, desired_time)
-
-    def enqueue(pid):
-        queue.insert(pid)
+#@app.post('/')
 
 if __name__ == "__main__":
-    app.run("localhost", 6969)
+    total_users = {} # total users that came today, dynamically populated
+    users = {} # current users in tec cafe using computers
+    fake_users = [] # fake users container
+    for _ in range (15):
+        fake_users.append([Person.createPerson()]) ## [PID (AXXXXXXXX), Name, Time In (YYYY-MM-DD HH:M:S), Duration, Tally (severe), Tally (moderate), Tally (light)]
+    
+    print(fake_users)
+
+    ## Test Algorithms
+    
+    #uvicorn.run("webServer:app", host="127.0.0.1", port=8007, reload=True)
