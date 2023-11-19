@@ -11,7 +11,7 @@ import os
 ## make sure to import your student and computer object files
 
 app = FastAPI()             
-app.mount("/src", StaticFiles(directory="backend/src/"), name="src")
+app.mount("/src", StaticFiles(directory="src/"), name="src")
 total_users = []
 users = {}
 queue = {}
@@ -19,7 +19,7 @@ queue = {}
 ## Should actually return users for this as well
 @app.get('/', response_class=HTMLResponse)
 def get_home(request: Request) -> HTMLResponse:
-    with open("backend/src/index.html", "r") as file:
+    with open("src/index.html", "r") as file:
         html_content = file.read()
     return HTMLResponse(content=html_content)
 
