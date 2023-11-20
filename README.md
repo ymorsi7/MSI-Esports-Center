@@ -34,8 +34,21 @@ The Analytics section is a helper service dedicated to helping run TEC Cafe run 
 
 You will also see that on all sections, there is a blue icon on the bottom right, which is a custom-built AI chatbot built exclusively for TEC Cafe. Student workers have the freedom to ask questions as it is trained on all the previous CSV data our service has generated. A question could be, how many students came on November 9th or which student came to our cafe the most during November? Using this, student workers can figure out who's the most frequent visitor as well as who's the frequent troublemaker.
 
+You can generate a custom PDF. Here is the PDF:
+![image](https://github.com/ymorsi7/MSI-Esports-Center/assets/85778372/ae6ecc9a-1242-4c33-86e2-a7b4e9accb20)
+
+
 ### Queue
 The queue is designed to showcase all students who scan in but computer positions are taken. The queue displays the PID, the name, and the hours they're going to play. The expected hours is critical as the student worker can advise that they are closing in an hour when the student wants to play for more than an hour. When TEC Cafe is filled, students are still responsible for scanning in. When a seat opens up, it will go from green to a noncolor on the computer layout. The student worker can then see who's the first student on the queue, and call their name.
+
+It is also very flexible. The reason why we didn't have it so that you're in the queue only when the cafe is full is because what if you want to grab lunch first but be next in line. You can register for your spot but this is up to the student worker. If the person is taking too long, the student worker can remove them from the queue.
+### Custom TEC AI Chatbox
+Our custom TEC AI Chatbox is trained on previous data depending on the specifications. This means that if you want it on one day, on a month, or even on a year, you can do so. This tool is very powerful as it allows analytics of data using AI. For example, you can ask various questions around the data without having to do work on the data.
+
+Here are working examples of the Chat AI Bot.
+![image](https://github.com/ymorsi7/MSI-Esports-Center/assets/85778372/1b99bc3e-7e4c-4bfc-9ead-136b3bd2ee66)
+
+As shown, if you have custom metrics you keep track of, the AI can answer based on the data provided.
 
 ## Technical Documentation
 ### RESTFful System Design
