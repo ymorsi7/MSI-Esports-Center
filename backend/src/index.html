@@ -5,13 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TEC</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TEC DapperDashboard</title>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
 	<link rel="icon" href="src/icon.jpeg" />
 
@@ -222,7 +217,7 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
       <input type="radio" id="tabToggle01" name="tabs" value="1" checked />
       <label for="tabToggle01" checked="checked">Seat Selection</label>
       <input type="radio" id="tabToggle02" name="tabs" value="2" />
-      <label for="tabToggle02" id = "user_label">Users</label>
+      <label for="tabToggle02">Users</label>
       <input type="radio" id="tabToggle03" name="tabs" value="3" />
       <label for="tabToggle03">Analytics</label>
       <input type="radio" id="tabToggle04" name="tabs" value="4" />
@@ -281,7 +276,9 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
                 <th>Name</th>
                 <th>Time In</th>
                 <th>Total Hours</th>
-                <th>Position</th>
+                <th>Extra Time</th>
+                <th>Tallies</th>
+                <th>Seat Selection</th>
               </tr>
             </thead>
             <tbody id="userData">
@@ -298,7 +295,8 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
           <div id="timeSeriesDiv"></div>
           <div id="anomalyDetectionDiv"></div>
         </div>
-        <button id ="export_button" class = "square"> EXPORT </button>
+        <button id ="export_button" class = "square" style = "color:dimgrey; font: Verdana;"> Export </button>
+        <!-- <button class = "square" style = "color:dimgrey; font: Verdana;"> <a href ="/turbo" style = "text-decoration: none; ">GPT Turbo Insights </a></button> -->
       </tab-content>
       <tab-content>
         <p>Queue</p>
@@ -307,45 +305,35 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
   </body>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      function server_request(url, data={}, verb, callback) {
-   return fetch(url, {
-    credentials: 'same-origin',
-    method: verb,
-    body: JSON.stringify(data),
-    headers: {'Content-Type': 'application/json'}
-  })
-  .then(response => response.json())
-  .then(response => {
-    if(callback)
-      callback(response);
-  })
-  .catch(error => console.error('Error:', error));
-  }
-  document.querySelector('#user_label').addEventListener('click', (event) => {
-        // Submit the POST request
-        server_request('/current_users', {}, 'POST', (response) => {
-          if (response) {
-             populateTable(response);
-          }
-        });
-  
-    });
-
+      fetch("src/TestData.csv") // csv file
+        .then((response) => response.text())
+        .then((csvText) =>
+          Papa.parse(csvText, {
+            header: true,
+            complete: function (results) {
+              populateTable(results.data);
+            },
+          })
+        );
     });
 
     function populateTable(usersData) {
       var userDataContainer = document.getElementById("userData");
+
       usersData.forEach(function (user) {
         var row = document.createElement("tr");
+
         // Add data cells
-        time = user[2].split(" ");
         row.innerHTML = `
-            <td>${user[0]}</td>
-            <td>${user[1]}</td>
-            <td>${time[1]}</td>
-            <td>${user[3]}</td>
-            <td>${user[4]}</td>
+            <td>${user.PID}</td>
+            <td>${user.Name}</td>
+            <td>${user["Time In"]}</td>
+            <td>${user["Total Hours"]}</td>
+            <td>${user["Extra Time"]}</td>
+            <td class="tally">${generateTally()}</td>
+            <td>${generateDropdown()}</td>
         `;
+
         userDataContainer.appendChild(row);
       });
     }
@@ -358,6 +346,40 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
       }
       return tallyHtml;
     }
+
+    function generateDropdown() {
+      return `
+        <select class="dropdown">
+            <option value="a1">A1</option>
+            <option value="a2">A2</option>
+            <option value="a3">A3</option>
+            <option value="a4">A4</option>
+            <option value="a5">A5</option>
+			<option value="a1">B1</option>
+            <option value="b2">B2</option>
+            <option value="b3">B3</option>
+            <option value="b4">B4</option>
+            <option value="b5">B5</option>
+			<option value="c1">C1</option>
+            <option value="c2">C2</option>
+            <option value="c3">C3</option>
+            <option value="c4">C4</option>
+            <option value="c5">C5</option>
+            <option value="c6">C6</option>
+			<option value="d1">D1</option>
+            <option value="d2">D2</option>
+            <option value="d3">D3</option>
+            <option value="d4">D4</option>
+            <option value="d5">D5</option>
+            <option value="d6">D6</option>
+			<option value="e1">E1</option>
+            <option value="e2">E2</option>
+            <option value="e3">E3</option>
+            <option value="e4">E4</option>
+        </select>
+    `;
+    }
+
     function toggleTally(element) {
       element.classList.toggle("active");
     }
@@ -388,7 +410,7 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
 
 
 function createOverstaySeverityBarChart(data) {
-    const severityCounts = { 'S': 0, 'M': 0, 'L': 0 };
+    const severityCounts = { 'Severe': 0, 'Moderate': 0, 'Light': 0 };
 
     data.forEach(item => {
         severityCounts['Severe'] += parseInt(item['Severe'], 10);
@@ -501,7 +523,7 @@ function createTimeSeriesPlot(data) {
     };
 
     const layout = {
-        title: 'Relationship of Time in with Extra Time',
+        title: 'Time Series of Time In vs Total Hours',
         xaxis: { title: 'Time In' },
         yaxis: { title: 'Total Hours' },
 		paper_bgcolor: 'rgba(0,0,0,0)',
@@ -595,9 +617,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     
 });
   </script>
-
+<script src="https://www.socialintents.com/api/chat/socialintents.1.3.js#2c9fab358bdb7092018be9f208560cfb" async="async"></script>
   <script src="src/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  
 
 </html>
