@@ -16,7 +16,9 @@ As these were our core, we also concluded that helper services may be of additio
     - The ability to export the metrics into a PDF for each day.
     - An internal algorithm that evaluates the students "Responsibility Score" and how credible they are.
 
-We also have an extra service for future scalability where students will have to input how long they'll play for and automatically lock them if they exceed them. 
+We also have an [added feature](https://tecguest.netlify.app/) for future scalability where students will have to input how long they'll play for and automatically lock them if they exceed them. 
+
+
 ![image](https://github.com/ymorsi7/MSI-Esports-Center/assets/85778372/6e369162-ec23-42fe-98cb-f771d8babcfe)
 
 
