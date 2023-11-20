@@ -59,18 +59,5 @@ function selectSeat(element, seatId) {
           }
         });
   
-    });
-
-    document.querySelector('#queue_label').addEventListener('click', (event) => {
-      // Submit the POST request
-      server_request('/get_queue', {}, 'POST', (response) => {
-        alert("HERE");
-        if (response) {
-           alert(response);
-        }
-      });
-
-  });
-
-    
+    });    
   });

@@ -64,6 +64,10 @@ Hide radios */
       input {
         display: none;
       }
+
+      input.yes {
+        display: none;
+      }
       input:checked + label {
         color: var(--page-text-color-hover);
         background-color: rgba(255, 255, 255, 0);
@@ -299,7 +303,96 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
         <!-- <button class = "square" style = "color:dimgrey; font: Verdana;"> <a href ="/turbo" style = "text-decoration: none; ">GPT Turbo Insights </a></button> -->
       </tab-content>
       <tab-content>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <p>Queue</p>
+
+
+        <div id="queueForm">
+          <center>
+          <input type="text" id="nameInput" style = "z-index: 0;border:transparent;border-radius: 25px;" placeholder="Enter Name!">
+          <button onclick="addToQueue()" style = "border-radius: 25px;">Join Queue</button></center>
+      </div>
+      <div id="queueList">
+          <ul id="list">
+              <!-- List items will be added here -->
+          </ul>
+      </div>
+
+      <style>
+        #queueForm {
+    margin-bottom: 20px;
+}
+
+#nameInput {
+    padding: 5px;
+    margin-right: 10px;
+    display:inline-block;
+
+    box-sizing: border-box; 
+}
+
+button {
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+#queueList {
+    margin-top: 20px;
+}
+
+li {
+    list-style-type: none;
+    margin: 5px 0;
+}
+      </style>
+
+      <script>
+        function addToQueue() {
+    var name = document.getElementById('nameInput').value;
+    if (name.trim() === '') {
+        alert('Please enter a name.');
+        return;
+    }
+    var list = document.getElementById('list');
+    var entry = document.createElement('li');
+    entry.appendChild(document.createTextNode(name));
+    list.appendChild(entry);
+    document.getElementById('nameInput').value = ''; // Clear input field
+}
+      </script>
+
+
+
+
+
+        <script>
+          document.querySelector('#push').onclick = function(){
+    if(document.querySelector('#newtask input').value.length == 0){
+        alert("Kindly Enter Task Name!!!!")
+    }
+
+    else{
+        document.querySelector('#tasks').innerHTML += `
+            <div class="task">
+                <span id="taskname">
+                    ${document.querySelector('#newtask input').value}
+                </span>
+                <button class="delete">
+                    <i class="far fa-trash-alt"></i>
+                </button>
+            </div>
+        `;
+
+        var current_tasks = document.querySelectorAll(".delete");
+        for(var i=0; i<current_tasks.length; i++){
+            current_tasks[i].onclick = function(){
+                this.parentNode.remove();
+            }
+        }
+    }
+}
+        </script>
+
       </tab-content>
     </tab-container>
   </body>
