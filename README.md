@@ -1,5 +1,12 @@
 <img src = "https://cdn.dribbble.com/users/3144264/screenshots/16080159/media/76c03dd932c1e3f797c3fb5869826de9.png"  height = "75"> <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Seal_of_the_University_of_California%2C_San_Diego.svg/1200px-Seal_of_the_University_of_California%2C_San_Diego.svg.png"  height = "75">
 
+References:
+Christine Fan - EDU Program Lead (Integrated Marketing, North America Region)
+christinefan@msi.com
+
+Chris Griebenow - ESports Director @ UCSD
+cgriebenow@ucsd.edu
+
 # MSI Hackathon (UC San Diego)
 For the 2023 MSI Hackathon, we were assigned to solve the ongoing challenge of queue management and user trackability at TEC Cafe, located at the University of California, San Diego. The challenge was to improve the efficiency of the current system they had in place, which was a scan-in-and-use methodology, and streamline it as much as possible.
 
