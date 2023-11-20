@@ -25,10 +25,6 @@ As these were our core, we also concluded that helper services may be of additio
 
 We also have an [added feature](https://tecguest.netlify.app/) for future scalability where students will have to input how long they'll play for and automatically lock them if they exceed them. 
 
-
-![image](https://github.com/ymorsi7/MSI-Esports-Center/assets/85778372/6e369162-ec23-42fe-98cb-f771d8babcfe)
-
-
 ## Flow
 ### Layout
 When a student walks into the TEC Cafe, they are expected to scan in. This initial scan is saved on the student workers' laptop and is assumed to store their PID, Name, and Time Stamp in. If this scan is valid, the student worker is allowed to choose from the available computers listed on their interface. A computer with no color indicates availability, green represents in use, and red represents overdue. The student worker must input how long they are going to play when they choose a computer position for that student.
