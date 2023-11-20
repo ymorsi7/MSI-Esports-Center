@@ -5,10 +5,15 @@ from fastapi.staticfiles import StaticFiles
 from datetime import time
 from utilities.Tester import Tester
 from utilities.PDF import PDF
+from pydantic import BaseModel   
 import uvicorn      
 import os
 
 ## make sure to import your student and computer object files
+
+class Student(BaseModel):
+  position: str
+  duration: str
 
 app = FastAPI()             
 app.mount("/src", StaticFiles(directory="backend/src/"), name="src")
@@ -32,9 +37,11 @@ def get_home(request: Request) -> HTMLResponse:
 ## For assigning a computer to a user
 ## Duration is useful again here so the internal algorithm can have a clock and count down.
 @app.post('/user')
-def add_student(position: str, duration: str):
+def add_student(student: Student):
     aPerson = Tester.createPerson() ## PID , NAME, TIME IN , DURATION, EXTRA MINUTES, SEVERE TALLY, MODERATE TALLY, LIGHT TALLY
-    return #.append([str(aPerson[0]), str(aPerson[1]), duration])
+    hours = int(student.duration)/3600
+    users[aPerson[0]] = [aPerson[1], hours]
+    return True
 
 @app.delete("/user/{PID}")
 def delete_user(PID: str):

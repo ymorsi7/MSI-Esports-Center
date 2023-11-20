@@ -1,12 +1,33 @@
+function server_request(url, data={}, verb, callback) {
+  return fetch(url, {
+    credentials: 'same-origin',
+    method: verb,
+    body: JSON.stringify(data),
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(response => response.json())
+  .then(response => {
+    if(callback)
+      callback(response);
+  })
+  .catch(error => console.error('Error:', error));
+}
+
 function selectSeat(element, seatId) {
-    let time = prompt("How many hours/minutes? (format: HH:MM)");
-    if (time) {
+  let time = prompt("How many hours/minutes? (format: HH:MM)");
+  if (time) {
       let [hours, minutes] = time.split(':').map(t => parseInt(t));
       let totalSeconds = hours * 3600 + minutes * 60;
       element.classList.add('active');
       countdown(element, totalSeconds);
-    }
+
+      let data = new FormData();
+      data = {"position": seatId, "duration": totalSeconds.toString()};
+      server_request('/user', data, 'post', (response) => {
+
+      });
   }
+}
 
   function countdown(element, seconds) {
     let timerElement = document.createElement('div');
@@ -29,20 +50,6 @@ function selectSeat(element, seatId) {
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    function server_request(url, data={}, verb, callback) {
-        return fetch(url, {
-          credentials: 'same-origin',
-          method: verb,
-          body: JSON.stringify(data),
-          headers: {'Content-Type': 'application/json'}
-        })
-        .then(response => response.json())
-        .then(response => {
-          if(callback)
-            callback(response);
-        })
-        .catch(error => console.error('Error:', error));
-      }
 
     document.querySelector('#export_button').addEventListener('click', (event) => {
         // Submit the POST request
@@ -53,6 +60,17 @@ function selectSeat(element, seatId) {
         });
   
     });
+
+    document.querySelector('#queue_label').addEventListener('click', (event) => {
+      alert("HELLO");
+      // Submit the POST request
+      server_request('/get_queue', {}, 'POST', (response) => {
+        if (response) {
+          alert("HELLO");
+        }
+      });
+
+  });
 
     
   });
