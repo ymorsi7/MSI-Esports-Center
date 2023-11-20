@@ -19,7 +19,9 @@ app = FastAPI()
 app.mount("/src", StaticFiles(directory="backend/src/"), name="src")
 total_users = []
 users = {}
+reference = {}
 queue = {}
+data = []
 
 ## Should actually return users for this as well
 @app.get('/', response_class=HTMLResponse)
@@ -84,10 +86,13 @@ def get_pdf():
 @app.post('/current_users')
 def get_users():
     ## The front end should have an event listener that sends a request to this route when the student worker presses user dashboard.
-    data = []
+    temp = []
     for key, value in users.items():
-        data.append([key, value[0], value[1], value[2], value[3]])
-    return data
+        if key not in reference.keys():
+            reference[key] = value
+            temp.append([key, value[0], value[1], value[2], value[3]])
+    data.extend(temp)
+    return temp
 
 @app.post('/current_queue')
 def get_queue():

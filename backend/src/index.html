@@ -337,7 +337,6 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
       var userDataContainer = document.getElementById("userData");
       usersData.forEach(function (user) {
         var row = document.createElement("tr");
-        var tempContainer;
         // Add data cells
         row.innerHTML = `
             <td>${user[0]}</td>
@@ -348,6 +347,7 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
         `;
         userDataContainer.appendChild(row);
       });
+      Object.assign(userDataContainer, tempContainer);
     }
 
     function generateTally() {
