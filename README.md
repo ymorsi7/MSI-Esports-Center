@@ -1,6 +1,6 @@
 <img src = "https://cdn.dribbble.com/users/3144264/screenshots/16080159/media/76c03dd932c1e3f797c3fb5869826de9.png"  height = "75"> <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Seal_of_the_University_of_California%2C_San_Diego.svg/1200px-Seal_of_the_University_of_California%2C_San_Diego.svg.png"  height = "75">
 
-References:
+References:<br>
 Christine Fan - EDU Program Lead (Integrated Marketing, North America Region)<br>
 christinefan@msi.com
 
@@ -54,6 +54,7 @@ Here are working examples of the Chat AI Bot.
 As shown, if you have custom metrics you keep track of, the AI can answer based on the data provided.
 
 ## Technical Documentation
+To run this code, simply clone this onto your local machine and run server.py. A common issue when running is the location of the working directory. Please make sure that you are at the root level (MSI-Esports-Center) and not (MSI-Esports-Center/backend) when running the files. These configurations are dependent on your code runners and build systems.
 ### RESTFful System Design
 In our system design, we're adhering to a principle called RESTful which stands for representation state transfer and allows for the simple interaction between web services without intense processing.
 
