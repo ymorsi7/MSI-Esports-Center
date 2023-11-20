@@ -40,7 +40,7 @@ def get_home(request: Request) -> HTMLResponse:
 def add_student(student: Student):
     aPerson = Tester.createPerson() ## PID , NAME, TIME IN , DURATION, EXTRA MINUTES, SEVERE TALLY, MODERATE TALLY, LIGHT TALLY
     hours = int(student.duration)/3600
-    users[aPerson[0]] = [aPerson[1], hours]
+    users[aPerson[0]] = [aPerson[1], aPerson[2], hours, student.position]
     return True
 
 @app.delete("/user/{PID}")
@@ -84,7 +84,10 @@ def get_pdf():
 @app.post('/current_users')
 def get_users():
     ## The front end should have an event listener that sends a request to this route when the student worker presses user dashboard.
-    return users
+    data = []
+    for key, value in users.items():
+        data.append([key, value[0], value[1], value[2], value[3]])
+    return data
 
 @app.post('/current_queue')
 def get_queue():
