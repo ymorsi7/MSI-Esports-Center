@@ -47,7 +47,7 @@ class PDF:
             ('ALIGN', column6[0], column6[1], 'RIGHT'),
         ])
 
-      colWidths = [
+        colWidths = [
             2.2 * cm, 
             3.6 * cm,  
             4.2 * cm,  
