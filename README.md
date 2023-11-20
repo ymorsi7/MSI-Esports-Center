@@ -1,7 +1,7 @@
 <img src = "https://cdn.dribbble.com/users/3144264/screenshots/16080159/media/76c03dd932c1e3f797c3fb5869826de9.png"  height = "75"> <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Seal_of_the_University_of_California%2C_San_Diego.svg/1200px-Seal_of_the_University_of_California%2C_San_Diego.svg.png"  height = "75">
 
 # MSI Hackathon (UC San Diego)
-For the 2023 MSI Hackathon, we were assigned to solve the ongoing challenge of queue management and user trackability at TEC Cafe, located at the University of California, San Diego. The challenge was to thus improve the efficiency of the current system they had in place, which was a scan-in-and-use methodology and streamline it as much as possible.
+For the 2023 MSI Hackathon, we were assigned to solve the ongoing challenge of queue management and user trackability at TEC Cafe, located at the University of California, San Diego. The challenge was to improve the efficiency of the current system they had in place, which was a scan-in-and-use methodology, and streamline it as much as possible.
 
 We were recommended to focus on three specific features:
 - Queue Management with ID Scanning
@@ -11,10 +11,10 @@ We were recommended to focus on three specific features:
 As these were our core, we also concluded that helper services may be of additional use such as:
 - An integrated exclusive TEC AI-chat bot for student workers to ask questions related to data metrics.
 - Easy-to-use user interface where the student worker can assign which computers to use.
-- Custom Data Analytics, including an analysis on when students might need more time based on scan-in.
+- Custom Data Analytics, including an analysis of when students might need more time based on scan-in.
     - Archival of Daily Data which keeps track of all students that scanned in along with their playtime and expected extra time.
     - The ability to export the metrics into a PDF for each day.
-    - An internal algorithm that evaluates the students "Responsibility Score" and how credible they are.
+    - An internal algorithm that evaluates the student's "Responsibility Score" and how credible they are.
 
 We also have an [added feature](https://tecguest.netlify.app/) for future scalability where students will have to input how long they'll play for and automatically lock them if they exceed them. 
 
@@ -24,26 +24,26 @@ We also have an [added feature](https://tecguest.netlify.app/) for future scalab
 
 ## Flow
 ### Layout
-When a student walks into the TEC Cafe, they are expected to scan in. This initial scan is saved on the student workers laptop and is assumed to store their PID, Name, and Time Stamp in. If this scan is valid, the student worker is allowed to choose from the available computers listed on their interface. A computer with no color indicates availability, green represents in use, and red represents overdue. The student worker must input how long they are going to play when they choose a computer position for that student.
+When a student walks into the TEC Cafe, they are expected to scan in. This initial scan is saved on the student workers' laptop and is assumed to store their PID, Name, and Time Stamp in. If this scan is valid, the student worker is allowed to choose from the available computers listed on their interface. A computer with no color indicates availability, green represents in use, and red represents overdue. The student worker must input how long they are going to play when they choose a computer position for that student.
 
 ### User Dashboard
-When the student worker inputs the number of hours the student will play, the information will show up on the User Dashboard. The User Dashboar is a collection of all the students currently playing within TEC Cafe and displays their PID, Name, Scan in Time, Hours they'll play, and the position of their computers. This allows for the student worker to easily see which student is at where and easy access to their information.
+When the student worker inputs the number of hours the student will play, the information will show up on the User Dashboard. The User Dashboard is a collection of all the students currently playing within TEC Cafe and displays their PID, Name, Scan in Time, Hours they'll play, and the position of their computers. This allows the student worker to easily see which student is at where and easy access to their information.
 
 ### Analytics
-The Analytics section is a helper service dedicated to helping run TEC Cafe run much more smoothly. It features an time series analysis that shows when students are more likely to need more time relative to when they scan in. Below the graph, student workers have the ability to export the previous day's PDF, in which it'll generate a table consisting of all the PIDs, names of the students, Total Hours they played, Extra Time they took, and different severity of warnings they received on that time.
+The Analytics section is a helper service dedicated to helping TEC Cafe run much more smoothly. It features a time series analysis that shows when students are more likely to need more time relative to when they scan in. Below the graph, student workers have the ability to export the previous day's PDF, which generates a table consisting of all the PIDs, names of the students, Total Hours they played, Extra Time they took, and different severity of warnings they received on that time.
 
-You will also see that on all sections, there is a blue icon on the bottom right, which is a custom-built AI chatbot built exclusively for TEC Cafe. Student workers have the freedom to ask questions as it is trained on all the previous CSV data our service has generated. A question could be, how many students came on November 9th or which student came to our cafe the most during November? Using this, student workers can figure out who's the most frequent visitor as well as who's the frequent troublemaker.
+You will also see that on all sections, there is a blue icon on the bottom right, which is a custom-built AI chatbot built exclusively for TEC Cafe. Student workers have the freedom to ask questions as it is trained on all the previous CSV data our service has generated. A question could be, how many students came on November 9th, or which student came to our cafe the most during November? Using this, student workers can figure out who's the most frequent visitor as well as who's the frequent troublemaker.
 
 You can generate a custom PDF. Here is the PDF:
 ![image](https://github.com/ymorsi7/MSI-Esports-Center/assets/85778372/ae6ecc9a-1242-4c33-86e2-a7b4e9accb20)
 
 
 ### Queue
-The queue is designed to showcase all students who scan in but computer positions are taken. The queue displays the PID, the name, and the hours they're going to play. The expected hours is critical as the student worker can advise that they are closing in an hour when the student wants to play for more than an hour. When TEC Cafe is filled, students are still responsible for scanning in. When a seat opens up, it will go from green to a noncolor on the computer layout. The student worker can then see who's the first student on the queue, and call their name.
+The queue is designed to showcase all students who scan in but computer positions are taken. The queue displays the PID, the name, and the hours they're going to play. The expected hours are critical as the student worker can advise that they are closing in an hour when the student wants to play for more than an hour. When TEC Cafe is filled, students are still responsible for scanning in. When a seat opens up, it will go from green to a noncolor on the computer layout. The student worker can then see who's the first student on the queue, and call their name.
 
 It is also very flexible. The reason why we didn't have it so that you're in the queue only when the cafe is full is because what if you want to grab lunch first but be next in line. You can register for your spot but this is up to the student worker. If the person is taking too long, the student worker can remove them from the queue.
 ### Custom TEC AI Chatbox
-Our custom TEC AI Chatbox is trained on previous data depending on the specifications. This means that if you want it on one day, on a month, or even on a year, you can do so. This tool is very powerful as it allows analytics of data using AI. For example, you can ask various questions around the data without having to do work on the data.
+Our custom TEC AI Chatbox is trained on previous data depending on the specifications. This means that if you want it on one day, on a month, or even on a year, you can do so. This tool is very powerful as it allows analytics of data using AI. For example, you can ask various questions about the data without having to do work on the data.
 
 Here are working examples of the Chat AI Bot.
 ![image](https://github.com/ymorsi7/MSI-Esports-Center/assets/85778372/1b99bc3e-7e4c-4bfc-9ead-136b3bd2ee66)
