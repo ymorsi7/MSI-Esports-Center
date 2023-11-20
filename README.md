@@ -17,7 +17,8 @@ As these were our core, we also concluded that helper services may be of additio
 - - An internal algorithm that evaluates the students "Responsibility Score" and how credibile they are.
 
 We also have an extra service for future scalability where students will have to input how long they'll play for and automatically lock them if they exceed them. 
-[timer for the students using computers](["C:\Users\Cyborg 15\Documents\GitHub\MSI-Esports-Center\Screenshot 2023-11-19 180655.png"]("C:\Users\Cyborg 15\Documents\GitHub\MSI-Esports-Center\Screenshot 2023-11-19 180655.png"))
+![image](https://github.com/ymorsi7/MSI-Esports-Center/assets/85778372/6e369162-ec23-42fe-98cb-f771d8babcfe)
+
 
 ## Flow
 ### Layout
