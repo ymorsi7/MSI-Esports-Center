@@ -1,24 +1,28 @@
 :root {
-	--page-height: 100vh;
 	--page-width: 100vw;
 	--page-margin: 0;
 	--page-padding: 0;
-	--page-font-family: Calibri, "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
+	--page-font-family: Calibri, "Gill Sans", "Gill Sans MT", "Trebuchet MS",
+	  sans-serif;
 	--page-text-color: #8e9196;
-	--page-text-color-hover: rgba(255,255,255,1.0);
+	--page-text-color-hover: rgba(255, 255, 255, 1);
 	--page-background-color: #1a1e23;
 	--tab-display: grid;
 	--tab-background-color: rgba(255, 255, 255, 0.03);
 	--display-none: none;
 	--box-sizing: border-box;
-}
-*:before,
-*:after,
-*,
-::after,
-::before {box-sizing: border-box;}
-html,
-body {
+  }
+
+  *:before,
+  *:after,
+  *,
+  ::after,
+  ::before {
+	box-sizing: border-box;
+  }
+
+  html,
+  body {
 	display: var(--tab-display);
 	justify-content: center;
 	margin: var(--page-margin);
@@ -26,28 +30,40 @@ body {
 	font-family: var(--page-font-family);
 	color: var(--page-text-color);
 	background-color: var(--page-background-color);
-}
-p {padding: 0 1em;}
-p span {color: var(--page-text-color-hover);}
+  }
 
-tab-container {
+  p {
+	padding: 0 1em;
+  }
+
+  p span {
+	color: var(--page-text-color-hover);
+  }
+
+  tab-container {
 	display: var(--tab-display);
 	margin-top: 50px;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-rows: auto 1fr;
-	border: solid rgba(255,255,255,0.03);
-	border-radius: .5em;
-}
-/*
+	border: solid rgba(255, 255, 255, 0.03);
+	border-radius: 0.5em;
+	justify-content: center;
+  }
+
+  /*
 TAB CONTROLS
 Hide radios */
-input {display: none;}
-input:checked + label {
+  input {
+	display: none;
+  }
+
+  input:checked+label {
 	color: var(--page-text-color-hover);
-	background-color: rgba(255,255,255,0.0);
+	background-color: rgba(255, 255, 255, 0);
 	transition: all 250ms;
-}
-label {
+  }
+
+  label {
 	cursor: pointer;
 	transition: color 250ms;
 	padding: 1em;
@@ -55,23 +71,144 @@ label {
 	background-color: var(--tab-background-color);
 	text-align: center;
 	transition: all 250ms;
-}
-label:last-of-type {border: none; }
-label:hover {
-	color: var(--page-text-color-hover);
-	background-color: rgba(255,255,255,0.05);
-}
+  }
 
-tab-content {
+  label:last-of-type {
+	border: none;
+  }
+
+  label:hover {
+	color: var(--page-text-color-hover);
+	background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  tab-content {
 	display: var(--tab-display);
 	grid-column: 1 / -1;
-}
-/*
+  }
+
+  /*
 Why doesn't this work!? 
 input ~ tab-content {display: none;}
 input:checked ~ tab-content {display: var(--tab-display);}*/
 
-input#tabToggle01:checked ~ tab-content:not(:nth-of-type(1)),
-input#tabToggle02:checked ~ tab-content:not(:nth-of-type(2)),
-input#tabToggle03:checked ~ tab-content:not(:nth-of-type(3)),
-input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {display: none;}
+  input#tabToggle01:checked~tab-content:not(:nth-of-type(1)),
+  input#tabToggle02:checked~tab-content:not(:nth-of-type(2)),
+  input#tabToggle03:checked~tab-content:not(:nth-of-type(3)),
+  input#tabToggle04:checked~tab-content:not(:nth-of-type(4)) {
+	display: none;
+  }
+
+  body {
+	font-family: "Arial", sans-serif;
+	/* background-color: #f4f4f4; */
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* height: 100vh; */
+  }
+
+  .layout {
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	grid-gap: 10px;
+	/* background-color: #ffffff; */
+	padding: 20px;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	overflow: hidden;
+  }
+
+  .square {
+	border: 2px solid #ddd;
+	padding: 20px;
+	cursor: pointer;
+	position: relative;
+	transition: transform 0.2s, box-shadow 0.2s;
+	border-radius: 5px;
+	color: #ffffff;
+  }
+
+  .square:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .square.active {
+	background-color: #4caf50;
+	color: #ffffff;
+	border-color: #4caf50;
+  }
+
+  .timer {
+	position: absolute;
+	top: 75%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 0.7em;
+	color: #fff;
+  }
+
+  .gap {
+	border: 0px solid #ddd;
+	padding: 20px;
+	cursor: pointer;
+	position: relative;
+	transition: transform 0.2s, box-shadow 0.2s;
+	border-radius: 5px;
+  }
+
+  .empty {
+	background-color: transparent;
+	border: none;
+	box-shadow: none;
+  }
+  #usersTable table {
+	width: 100%;
+	border-collapse: collapse;
+  }
+
+  #usersTable th,
+  #usersTable td {
+	border: 1px solid rgb(49, 49, 49)(255, 255, 255, 0.03);
+	padding: 8px;
+	text-align: left;
+  }
+
+  #usersTable th {
+	background-color: rgba(59, 59, 59, 0.03);
+  }
+
+  #usersTable td {
+	background-color: rgba(255, 255, 255, 0.03);
+  }
+
+  .tally {
+	display: flex;
+	gap: 5px;
+  }
+
+  .tally span {
+	width: 15px;
+	height: 15px;
+	background-color: rgba(189, 189, 189, 0.279);
+	display: inline-block;
+	border-radius: 50%;
+	cursor: pointer;
+  }
+
+  .tally span.active {
+	background-color: red;
+  }
+
+  .dropdown {
+	padding: 5px;
+	background-color: rgba(189, 189, 189, 0.114);
+	color: white;
+	border: 1px solid rgba(255, 255, 255, 0.03);
+	border-radius: 5px;
+  }
+
+

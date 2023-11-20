@@ -1,311 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TEC</title>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TEC</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
-	<link rel="icon" href="src/icon.jpeg" />
+  <link rel="stylesheet" type="text/css" href="src/style.css" />
+  <link rel="icon" href="src/icon.jpeg" />
 
- <style>
-      :root {
-        --page-width: 100vw;
-        --page-margin: 0;
-        --page-padding: 0;
-        --page-font-family: Calibri, "Gill Sans", "Gill Sans MT", "Trebuchet MS",
-          sans-serif;
-        --page-text-color: #8e9196;
-        --page-text-color-hover: rgba(255, 255, 255, 1);
-        --page-background-color: #1a1e23;
-        --tab-display: grid;
-        --tab-background-color: rgba(255, 255, 255, 0.03);
-        --display-none: none;
-        --box-sizing: border-box;
-      }
-      *:before,
-      *:after,
-      *,
-      ::after,
-      ::before {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        display: var(--tab-display);
-        justify-content: center;
-        margin: var(--page-margin);
-        padding: var(--page-padding);
-        font-family: var(--page-font-family);
-        color: var(--page-text-color);
-        background-color: var(--page-background-color);
-      }
-      p {
-        padding: 0 1em;
-      }
-      p span {
-        color: var(--page-text-color-hover);
-      }
+</head>
 
-      tab-container {
-        display: var(--tab-display);
-        margin-top: 50px;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto 1fr;
-        border: solid rgba(255, 255, 255, 0.03);
-        border-radius: 0.5em;
-        justify-content: center;
-      }
-      /*
-TAB CONTROLS
-Hide radios */
-      input {
-        display: none;
-      }
-      input:checked + label {
-        color: var(--page-text-color-hover);
-        background-color: rgba(255, 255, 255, 0);
-        transition: all 250ms;
-      }
-      label {
-        cursor: pointer;
-        transition: color 250ms;
-        padding: 1em;
-        border-right: solid 2px var(--page-background-color);
-        background-color: var(--tab-background-color);
-        text-align: center;
-        transition: all 250ms;
-      }
-      label:last-of-type {
-        border: none;
-      }
-      label:hover {
-        color: var(--page-text-color-hover);
-        background-color: rgba(255, 255, 255, 0.05);
-      }
+<body>
+  <tab-container>
+    <!-- TAB CONTROLS -->
+    <input type="radio" id="tabToggle01" name="tabs" value="1" checked />
+    <label for="tabToggle01" checked="checked">Seat Selection</label>
+    <input type="radio" id="tabToggle02" name="tabs" value="2" />
+    <label for="tabToggle02">Users</label>
+    <input type="radio" id="tabToggle03" name="tabs" value="3" />
+    <label for="tabToggle03">Analytics</label>
+    <input type="radio" id="tabToggle04" name="tabs" value="4" />
+    <label for="tabToggle04" id="queue_label">Queue</label>
+    <tab-content>
+      <div class="layout">
+        <div class="square" onclick="selectSeat(this, 'D1')">D1</div>
+        <div class="square" onclick="selectSeat(this, 'D2')">D2</div>
+        <div class="square" onclick="selectSeat(this, 'D3')">D3</div>
+        <div class="square" onclick="selectSeat(this, 'D4')">D4</div>
+        <div class="square" onclick="selectSeat(this, 'D5')">D5</div>
+        <div class="square" onclick="selectSeat(this, 'D6')">D6</div>
+        <div class="gap"></div>
+        <div class="square" onclick="selectSeat(this, 'E1')">E1</div>
+        <!-- row 1 -->
 
-      tab-content {
-        display: var(--tab-display);
-        grid-column: 1 / -1;
-      }
-      /*
-Why doesn't this work!? 
-input ~ tab-content {display: none;}
-input:checked ~ tab-content {display: var(--tab-display);}*/
+        <div class="square" onclick="selectSeat(this, 'C1')">C1</div>
+        <div class="square" onclick="selectSeat(this, 'C2')">C2</div>
+        <div class="square" onclick="selectSeat(this, 'C3')">C3</div>
+        <div class="square" onclick="selectSeat(this, 'C4')">C4</div>
+        <div class="square" onclick="selectSeat(this, 'C5')">C5</div>
+        <div class="square" onclick="selectSeat(this, 'C6')">C6</div>
+        <div class="gap"></div>
+        <div class="square" onclick="selectSeat(this, 'E1')">E2</div>
+        <!-- row 2 -->
 
-      input#tabToggle01:checked ~ tab-content:not(:nth-of-type(1)),
-      input#tabToggle02:checked ~ tab-content:not(:nth-of-type(2)),
-      input#tabToggle03:checked ~ tab-content:not(:nth-of-type(3)),
-      input#tabToggle04:checked ~ tab-content:not(:nth-of-type(4)) {
-        display: none;
-      }
+        <div class="square" onclick="selectSeat(this, 'B1')">B1</div>
+        <div class="square" onclick="selectSeat(this, 'B2')">B2</div>
+        <div class="square" onclick="selectSeat(this, 'B3')">B3</div>
+        <div class="square" onclick="selectSeat(this, 'B4')">B4</div>
+        <div class="square" onclick="selectSeat(this, 'B5')">B5</div>
+        <div class="gap"></div>
+        <div class="gap"></div>
+        <div class="square" onclick="selectSeat(this, 'E3')">E3</div>
+        <!-- row 3 -->
 
-      body {
-        font-family: "Arial", sans-serif;
-        /* background-color: #f4f4f4; */
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        /* height: 100vh; */
-      }
-      .layout {
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        grid-gap: 10px;
-        /* background-color: #ffffff; */
-        padding: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-      }
-      .square {
-        border: 2px solid #ddd;
-        padding: 20px;
-        cursor: pointer;
-        position: relative;
-        transition: transform 0.2s, box-shadow 0.2s;
-        border-radius: 5px;
-        color: #ffffff;
-      }
-      .square:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-      .square.active {
-        background-color: #4caf50;
-        color: #ffffff;
-        border-color: #4caf50;
-      }
-      .timer {
-        position: absolute;
-        top: 75%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 0.7em;
-        color: #fff;
-      }
-      .gap {
-        border: 0px solid #ddd;
-        padding: 20px;
-        cursor: pointer;
-        position: relative;
-        transition: transform 0.2s, box-shadow 0.2s;
-        border-radius: 5px;
-      }
-      .empty {
-        background-color: transparent;
-        border: none;
-        box-shadow: none;
-      }
-    </style>
-    <style>
-      #usersTable table {
-        width: 100%;
-        border-collapse: collapse;
-      }
+        <div class="square" onclick="selectSeat(this, 'A1')">A1</div>
+        <div class="square" onclick="selectSeat(this, 'A2')">A2</div>
+        <div class="square" onclick="selectSeat(this, 'A3')">A3</div>
+        <div class="square" onclick="selectSeat(this, 'A4')">A4</div>
+        <div class="square" onclick="selectSeat(this, 'A5')">A5</div>
+        <div class="gap"></div>
+        <div class="gap"></div>
+        <div class="square" onclick="selectSeat(this, 'E4')">E4</div>
+        <!-- row 4 -->
+      </div>
+    </tab-content>
+    <tab-content>
+      <p>Users</p>
 
-      #usersTable th,
-      #usersTable td {
-        border: 1px solid rgb(49, 49, 49)(255, 255, 255, 0.03);
-        padding: 8px;
-        text-align: left;
-      }
-
-      #usersTable th {
-        background-color: rgba(59, 59, 59, 0.03);
-      }
-
-      #usersTable td {
-        background-color: rgba(255, 255, 255, 0.03);
-      }
-
-      .tally {
-        display: flex;
-        gap: 5px;
-      }
-
-      .tally span {
-        width: 15px;
-        height: 15px;
-        background-color: rgba(189, 189, 189, 0.279);
-        display: inline-block;
-        border-radius: 50%;
-        cursor: pointer;
-      }
-
-      .tally span.active {
-        background-color: red;
-      }
-
-      .dropdown {
-        padding: 5px;
-		background-color: rgba(189, 189, 189, 0.114);
-		color: white;
-        border: 1px solid rgba(255, 255, 255, 0.03);
-        border-radius: 5px;
-      }
-    </style>
-  </head>
-
-  <body>
-    <tab-container>
-      <!-- TAB CONTROLS -->
-      <input type="radio" id="tabToggle01" name="tabs" value="1" checked />
-      <label for="tabToggle01" checked="checked">Seat Selection</label>
-      <input type="radio" id="tabToggle02" name="tabs" value="2" />
-      <label for="tabToggle02">Users</label>
-      <input type="radio" id="tabToggle03" name="tabs" value="3" />
-      <label for="tabToggle03">Analytics</label>
-      <input type="radio" id="tabToggle04" name="tabs" value="4" />
-      <label for="tabToggle04" id = "queue_label">Queue</label>
-      <tab-content>
-        <div class="layout">
-          <div class="square" onclick="selectSeat(this, 'D1')">D1</div>
-          <div class="square" onclick="selectSeat(this, 'D2')">D2</div>
-          <div class="square" onclick="selectSeat(this, 'D3')">D3</div>
-          <div class="square" onclick="selectSeat(this, 'D4')">D4</div>
-          <div class="square" onclick="selectSeat(this, 'D5')">D5</div>
-          <div class="square" onclick="selectSeat(this, 'D6')">D6</div>
-          <div class="gap"></div>
-          <div class="square" onclick="selectSeat(this, 'E1')">E1</div>
-          <!-- row 1 -->
-
-          <div class="square" onclick="selectSeat(this, 'C1')">C1</div>
-          <div class="square" onclick="selectSeat(this, 'C2')">C2</div>
-          <div class="square" onclick="selectSeat(this, 'C3')">C3</div>
-          <div class="square" onclick="selectSeat(this, 'C4')">C4</div>
-          <div class="square" onclick="selectSeat(this, 'C5')">C5</div>
-          <div class="square" onclick="selectSeat(this, 'C6')">C6</div>
-          <div class="gap"></div>
-          <div class="square" onclick="selectSeat(this, 'E1')">E2</div>
-          <!-- row 2 -->
-
-          <div class="square" onclick="selectSeat(this, 'B1')">B1</div>
-          <div class="square" onclick="selectSeat(this, 'B2')">B2</div>
-          <div class="square" onclick="selectSeat(this, 'B3')">B3</div>
-          <div class="square" onclick="selectSeat(this, 'B4')">B4</div>
-          <div class="square" onclick="selectSeat(this, 'B5')">B5</div>
-          <div class="gap"></div>
-          <div class="gap"></div>
-          <div class="square" onclick="selectSeat(this, 'E3')">E3</div>
-          <!-- row 3 -->
-
-          <div class="square" onclick="selectSeat(this, 'A1')">A1</div>
-          <div class="square" onclick="selectSeat(this, 'A2')">A2</div>
-          <div class="square" onclick="selectSeat(this, 'A3')">A3</div>
-          <div class="square" onclick="selectSeat(this, 'A4')">A4</div>
-          <div class="square" onclick="selectSeat(this, 'A5')">A5</div>
-          <div class="gap"></div>
-          <div class="gap"></div>
-          <div class="square" onclick="selectSeat(this, 'E4')">E4</div>
-          <!-- row 4 -->
-        </div>
-      </tab-content>
-      <tab-content>
-        <p>Users</p>
-
-        <div id="usersTable">
-          <table>
-            <thead>
-              <tr>
-                <th>PID</th>
-                <th>Name</th>
-                <th>Time In</th>
-                <th>Total Hours</th>
-                <th>Extra Time</th>
-                <th>Tallies</th>
-                <th>Seat Selection</th>
-              </tr>
-            </thead>
-            <tbody id="userData">
-              <!-- Data rows here -->
-            </tbody>
-          </table>
-        </div>
-      </tab-content>
-      <tab-content>
-        <p>Analytics</p>
-        <div>
-          <div id="overstaySeverityBarChart"></div>
-          <div id="timeInVsOverstaySeverityHeatmap"></div>
-          <div id="timeSeriesDiv"></div>
-          <div id="anomalyDetectionDiv"></div>
-        </div>
-        <button id ="export_button" class = "square" style = "color:dimgrey; font: Verdana;"> Export </button>
-        <!-- <button class = "square" style = "color:dimgrey; font: Verdana;"> <a href ="/turbo" style = "text-decoration: none; ">GPT Turbo Insights </a></button> -->
-      </tab-content>
-      <tab-content>
-        <p>Queue</p>
-      </tab-content>
-    </tab-container>
-  </body>
-  <script src = "src/table.js"></script>
-<script src="https://www.socialintents.com/api/chat/socialintents.1.3.js#2c9fab358bdb7092018be9f208560cfb" async="async"></script>
-  <script src="src/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <div id="usersTable">
+        <table>
+          <thead>
+            <tr>
+              <th>PID</th>
+              <th>Name</th>
+              <th>Time In</th>
+              <th>Total Hours</th>
+              <th>Extra Time</th>
+              <th>Tallies</th>
+              <th>Seat Selection</th>
+            </tr>
+          </thead>
+          <tbody id="userData">
+            <!-- Data rows here -->
+          </tbody>
+        </table>
+      </div>
+    </tab-content>
+    <tab-content>
+      <p>Analytics</p>
+      <div>
+        <div id="overstaySeverityBarChart"></div>
+        <div id="timeInVsOverstaySeverityHeatmap"></div>
+        <div id="timeSeriesDiv"></div>
+        <div id="anomalyDetectionDiv"></div>
+      </div>
+      <button id="export_button" class="square" style="color:dimgrey; font: Verdana;"> Export </button>
+      <!-- <button class = "square" style = "color:dimgrey; font: Verdana;"> <a href ="/turbo" style = "text-decoration: none; ">GPT Turbo Insights </a></button> -->
+    </tab-content>
+    <tab-content>
+      <p>Queue</p>
+    </tab-content>
+  </tab-container>
+</body>
+<script src="src/table.js"></script>
+<script src="https://www.socialintents.com/api/chat/socialintents.1.3.js#2c9fab358bdb7092018be9f208560cfb"
+  async="async"></script>
+<script src="src/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </html>
