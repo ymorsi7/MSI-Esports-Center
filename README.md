@@ -15,7 +15,7 @@ We also decided to include:
 - data analytics (time series analysis on the guests)
   - can be exported to PDF
 - metrics tracking for guests (keeping track of how long they stay and scoring the credibility of guests
-- [timer for the students using computers]([[https://tecguest.netlify.app/]](https://tecguest.netlify.app/))
+- [timer for the students using computers](https://tecguest.netlify.app/]](https://tecguest.netlify.app/)
 
 
 ## About
