@@ -62,11 +62,11 @@ function selectSeat(element, seatId) {
     });
 
     document.querySelector('#queue_label').addEventListener('click', (event) => {
-      alert("HELLO");
       // Submit the POST request
       server_request('/get_queue', {}, 'POST', (response) => {
+        alert("HERE");
         if (response) {
-          alert("HELLO");
+           alert(response);
         }
       });
 

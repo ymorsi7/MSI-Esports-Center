@@ -338,16 +338,16 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
       usersData.forEach(function (user) {
         var row = document.createElement("tr");
         // Add data cells
+        time = user[2].split(" ");
         row.innerHTML = `
             <td>${user[0]}</td>
             <td>${user[1]}</td>
-            <td>${user[2]}</td>
+            <td>${time[1]}</td>
             <td>${user[3]}</td>
             <td>${user[4]}</td>
         `;
         userDataContainer.appendChild(row);
       });
-      Object.assign(userDataContainer, tempContainer);
     }
 
     function generateTally() {
@@ -501,7 +501,7 @@ function createTimeSeriesPlot(data) {
     };
 
     const layout = {
-        title: 'Time Series of Time In vs Total Hours',
+        title: 'Relationship of Time in with Extra Time',
         xaxis: { title: 'Time In' },
         yaxis: { title: 'Total Hours' },
 		paper_bgcolor: 'rgba(0,0,0,0)',
