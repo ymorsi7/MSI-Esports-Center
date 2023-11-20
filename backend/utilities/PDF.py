@@ -72,7 +72,7 @@ class PDF:
             os.makedirs(os.getcwd() + "/backend/PDF/")
         archivo_pdf = SimpleDocTemplate(
             'backend/PDF/TEC_{}.pdf'.format((datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d')),
-            pagesize=letter,python -m pip install sphinx
+            pagesize=letter,
             rightMargin=40,
             leftMargin=40,
             topMargin=40,
