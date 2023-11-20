@@ -8,7 +8,7 @@ We were recommended to focus on three specific features:
 - User Metric Tracking for each PC
 - Scalability of the implemented system
 
-As these were our core, we also concluded that helper servies may be of additional use such as:
+As these were our core, we also concluded that helper services may be of additional use such as:
 - An integrated exclusive TEC AI-chat bot for student workers to ask questions related to data metrics.
 - Easy to use user interface where the student worker can assign which computers to use.
 - Custom Data Analytics, including an analysis on when students might need more time based on scan in.
@@ -17,7 +17,7 @@ As these were our core, we also concluded that helper servies may be of addition
 - - An internal algorithm that evaluates the students "Responsibility Score" and how credibile they are.
 
 We also have an extra service for future scalability where students will have to input how long they'll play for and automatically lock them if they exceed them. 
-[timer for the students using computers]([https://link-url-here.org](https://tecguest.netlify.app/))
+[timer for the students using computers](["C:\Users\Cyborg 15\Documents\GitHub\MSI-Esports-Center\Screenshot 2023-11-19 180655.png"]("C:\Users\Cyborg 15\Documents\GitHub\MSI-Esports-Center\Screenshot 2023-11-19 180655.png"))
 
 ## Flow
 ### Layout
