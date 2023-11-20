@@ -1,7 +1,7 @@
 <img src = "https://cdn.dribbble.com/users/3144264/screenshots/16080159/media/76c03dd932c1e3f797c3fb5869826de9.png"  height = "75"> <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Seal_of_the_University_of_California%2C_San_Diego.svg/1200px-Seal_of_the_University_of_California%2C_San_Diego.svg.png"  height = "75">
 
 # MSI Hackathon (UC San Diego)
-For the 2023 MSI Hackathon, we were assigned to solve the on-going challenge of queue-management and user trackability at TEC Cafe, located at the University of California, San Diego. The challenge was to thus improve the efficiency of the current system they had in place, which was a scan-in and use methodology and streamline it as much as possible.
+For the 2023 MSI Hackathon, we were assigned to solve the ongoing challenge of queue management and user trackability at TEC Cafe, located at the University of California, San Diego. The challenge was to thus improve the efficiency of the current system they had in place, which was a scan-in-and-use methodology and streamline it as much as possible.
 
 We were recommended to focus on three specific features:
 - Queue Management with ID Scanning
@@ -10,11 +10,11 @@ We were recommended to focus on three specific features:
 
 As these were our core, we also concluded that helper services may be of additional use such as:
 - An integrated exclusive TEC AI-chat bot for student workers to ask questions related to data metrics.
-- Easy to use user interface where the student worker can assign which computers to use.
-- Custom Data Analytics, including an analysis on when students might need more time based on scan in.
-- - Archival of Daily Data which keeps track of all students that scanned in along with their playtime and expected extra time.
-- - The ability to export the metrics into a PDF for each day.
-- - An internal algorithm that evaluates the students "Responsibility Score" and how credibile they are.
+- Easy-to-use user interface where the student worker can assign which computers to use.
+- Custom Data Analytics, including an analysis on when students might need more time based on scan-in.
+    - Archival of Daily Data which keeps track of all students that scanned in along with their playtime and expected extra time.
+    - The ability to export the metrics into a PDF for each day.
+    - An internal algorithm that evaluates the students "Responsibility Score" and how credible they are.
 
 We also have an extra service for future scalability where students will have to input how long they'll play for and automatically lock them if they exceed them. 
 ![image](https://github.com/ymorsi7/MSI-Esports-Center/assets/85778372/6e369162-ec23-42fe-98cb-f771d8babcfe)
@@ -30,14 +30,14 @@ When the student worker inputs the number of hours the student will play, the in
 ### Analytics
 The Analytics section is a helper service dedicated to helping run TEC Cafe run much more smoothly. It features an time series analysis that shows when students are more likely to need more time relative to when they scan in. Below the graph, student workers have the ability to export the previous day's PDF, in which it'll generate a table consisting of all the PIDs, names of the students, Total Hours they played, Extra Time they took, and different severity of warnings they received on that time.
 
-You will also see that on all sections, there is a blue icon on the bottom right, which is a custom built AI chat bot built exclusively for TEC Cafe. Student workers have the freedom to ask questions as it is trained on all the previous CSV data our service has generated. A question could be, how many students came on November 9th or which student came to our cafe the most during November? Using this, student workers can figure out who's the most frequent visitor as well as who's the frequent trouble maker.
+You will also see that on all sections, there is a blue icon on the bottom right, which is a custom-built AI chatbot built exclusively for TEC Cafe. Student workers have the freedom to ask questions as it is trained on all the previous CSV data our service has generated. A question could be, how many students came on November 9th or which student came to our cafe the most during November? Using this, student workers can figure out who's the most frequent visitor as well as who's the frequent troublemaker.
 
 ### Queue
-The queue is designed to showcase all students that scan in but computer positions are taken. The queue displays the PID, the name, and the hours they're going to play. The expected hours is critical as the student worker can advise that they are closing in an hour when the student wants to play for more than an hour. When TEC Cafe is filled, students are still responsible for scanning in. When a seat opens up, it will go from green to a non color on the computer layout. The student worker can then see who's the first student on the queue, and call their name.
+The queue is designed to showcase all students who scan in but computer positions are taken. The queue displays the PID, the name, and the hours they're going to play. The expected hours is critical as the student worker can advise that they are closing in an hour when the student wants to play for more than an hour. When TEC Cafe is filled, students are still responsible for scanning in. When a seat opens up, it will go from green to a noncolor on the computer layout. The student worker can then see who's the first student on the queue, and call their name.
 
 ## Technical Documentation
 ### RESTFful System Design
-In our system design, we're adhering to a principle called RESTful which stands for representation state transfer and allows for the simply interaction between web services without intense processing.
+In our system design, we're adhering to a principle called RESTful which stands for representation state transfer and allows for the simple interaction between web services without intense processing.
 
 There are 4 components to a RESTful system.
 ```python
@@ -50,7 +50,7 @@ There are 4 components to a RESTful system.
 These 'routes' allow for the web browser to communicate with our system and request different information based on the activity.
 
 ### Data Analytics
-There is a custom Test generator that generates fake mock data in which we can test our internal responsibiliy metric evaluation.
+There is a custom Test generator that generates fake mock data in which we can test our internal responsibility metric evaluation.
 
 There are 6 methods that are static, meaning they do not require an object to use.
 ```python
