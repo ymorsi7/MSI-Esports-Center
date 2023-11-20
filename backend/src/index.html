@@ -221,7 +221,7 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
       <input type="radio" id="tabToggle01" name="tabs" value="1" checked />
       <label for="tabToggle01" checked="checked">Seat Selection</label>
       <input type="radio" id="tabToggle02" name="tabs" value="2" />
-      <label for="tabToggle02">Users</label>
+      <label for="tabToggle02" id = "user_label">Users</label>
       <input type="radio" id="tabToggle03" name="tabs" value="3" />
       <label for="tabToggle03">Analytics</label>
       <input type="radio" id="tabToggle04" name="tabs" value="4" />
@@ -280,9 +280,6 @@ input:checked ~ tab-content {display: var(--tab-display);}*/
                 <th>Name</th>
                 <th>Time In</th>
                 <th>Total Hours</th>
-                <th>Extra Time</th>
-                <th>Tallies</th>
-                <th>Seat Selection</th>
               </tr>
             </thead>
             <tbody id="userData">
@@ -398,16 +395,30 @@ li {
   </body>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      fetch("src/TestData.csv") // csv file
-        .then((response) => response.text())
-        .then((csvText) =>
-          Papa.parse(csvText, {
-            header: true,
-            complete: function (results) {
-              populateTable(results.data);
-            },
-          })
-        );
+      function server_request(url, data={}, verb, callback) {
+  return fetch(url, {
+    credentials: 'same-origin',
+    method: verb,
+    body: JSON.stringify(data),
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(response => response.json())
+  .then(response => {
+    if(callback)
+      callback(response);
+  })
+  .catch(error => console.error('Error:', error));
+}
+document.querySelector('#user_label').addEventListener('click', (event) => {
+        // Submit the POST request
+        
+        server_request('/current_users', {}, 'POST', (response) => {
+          if (response) {
+            populateTable(response);
+          }
+        });
+  
+    }); 
     });
 
     function populateTable(usersData) {
@@ -418,13 +429,10 @@ li {
 
         // Add data cells
         row.innerHTML = `
-            <td>${user.PID}</td>
-            <td>${user.Name}</td>
-            <td>${user["Time In"]}</td>
-            <td>${user["Total Hours"]}</td>
-            <td>${user["Extra Time"]}</td>
-            <td class="tally">${generateTally()}</td>
-            <td>${generateDropdown()}</td>
+            <td>${user[0]}</td>
+            <td>${user[1]}</td>
+            <td>${user[2]}</td>
+            <td>${user[3]}</td>
         `;
 
         userDataContainer.appendChild(row);
