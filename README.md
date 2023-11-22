@@ -2,10 +2,10 @@
 
 Demo: https://www.youtube.com/watch?v=uLdKtFB3UsQ&ab_channel=YusufMorsi
 
-**Team**
-Yusuf Morsi
-Kevin Shin
-Chris Kim
+**Team**<br>
+Yusuf Morsi<br>
+Kevin Shin<br>
+Chris Kim<br>
 
 **References:**<br>
 Christine Fan - EDU Program Lead (Integrated Marketing, North America Region)<br>
