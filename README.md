@@ -7,13 +7,6 @@ Demo: https://www.youtube.com/watch?v=uLdKtFB3UsQ&ab_channel=YusufMorsi
 ### Kevin Shin<br>
 ### Chris Kim<br>
 
-## References<br>
-### Christine Fan - EDU Program Lead (Integrated Marketing, North America Region)<br>
-### christinefan@msi.com
-
-### Chris Griebenow - ESports Director @ UCSD<br>
-### cgriebenow@ucsd.edu
-
 # MSI Hackathon (UC San Diego)
 For the 2023 MSI Hackathon, we were assigned to solve the ongoing challenge of queue management and user trackability at TEC Cafe, located at the University of California, San Diego. The challenge was to improve the efficiency of the current system they had in place, which was a scan-in-and-use methodology, and streamline it as much as possible.
 
@@ -246,3 +239,12 @@ class PDF:
         archivo_pdf.build(elements)
         return 'TEC_{}.pdf'.format((datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d'))
 ```
+
+
+## References<br>
+### Christine Fan - EDU Program Lead (Integrated Marketing, North America Region)<br>
+### christinefan@msi.com
+
+### Chris Griebenow - ESports Director @ UCSD<br>
+### cgriebenow@ucsd.edu
+
