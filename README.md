@@ -2,7 +2,12 @@
 
 Demo: https://www.youtube.com/watch?v=uLdKtFB3UsQ&ab_channel=YusufMorsi
 
-References:<br>
+**Team**
+Yusuf Morsi
+Kevin Shin
+Chris Kim
+
+**References:**<br>
 Christine Fan - EDU Program Lead (Integrated Marketing, North America Region)<br>
 christinefan@msi.com
 
